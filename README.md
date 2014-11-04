@@ -1,4 +1,4 @@
-# CNodejs Ionic app [![Build Status](http://img.shields.io/travis/lanceli/cnodejs-ionic.svg?style=flat)](https://travis-ci.org/lanceli/cnodejs-ionic)
+# CNodejs Ionic app
 
 > [https://cnodejs.org](http://cnodejs.org) hybird mobile application powered by [Ionic Framework](http://ionicframework.com) using AngularJS and Cordova. The development stage powered by [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
 
@@ -9,7 +9,7 @@ If you'd like to run it locally, and modify something, you can do so by cloning 
 
 ```
 # Clone and Install dependencies
-$ git clone git://github.com/lanceli/redirector.git
+$ git clone git://github.com/lanceli/cnodejs-ionic.git
 $ npm install
 $ bower install
 
