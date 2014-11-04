@@ -1,0 +1,14 @@
+node_modules
+www
+.tmp
+.sass-cache
+app/lib
+coverage
+platforms
+plugins
+*.swp
+*.swo
+*.log
+*.DS_Store
+
+app/js/config.js

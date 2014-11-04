@@ -1,0 +1,33 @@
+<ion-side-menus>
+  <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-dark nav-title-slide-ios7">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> 返回</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <ion-header-bar align-title="left" class="bar-dark">
+      <h1 class="title">CNodeJs v1.0</h1>
+    </ion-header-bar>
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item class="item-divider">
+          板块
+        </ion-item>
+        <ion-item nav-clear menu-close ng-if="tab != 'undefined'" ng-repeat="(tab, tabName) in tabs" href="#/app/topics/{{tab}}">
+          {{tabName}}
+        </ion-item>
+        <ion-item class="item-divider">
+          其他
+        </ion-item>
+        <ion-item>
+          设置
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-light">
+      <h1 class="title">github.com/lanceli</h1>
+    </ion-footer-bar>
+  </ion-side-menu>
+</ion-side-menus>
