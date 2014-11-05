@@ -1,0 +1,36 @@
+<ion-view title="{{user.loginname}}">
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item class="item-avatar">
+        <img src="{{user.avatar_url}}" alt="" />
+        <span>{{user.loginname}}</span>
+        <span>{{user.score}}积分</span>
+      </ion-item>
+      <ion-item class="item-divider">
+        最近回复
+      </ion-item>
+      <ion-item class="item-avatar" ng-repeat="topic in user.recent_replies" href="#/app/topic/{{topic.id}}">
+        <img ng-src="{{topic.author.avatar_url}}">
+        <h2>{{topic.title}}</h2>
+        <p>
+          <span>{{topic.tab|tabName}}</span>
+          {{topic.author.loginname}}
+          <span class="item-note" am-time-ago="topic.last_reply_at">
+          </span>
+        </p>
+      </ion-item>
+      <ion-item class="item-divider">
+        最近主题
+      </ion-item>
+      <ion-item ng-repeat="topic in user.recent_topics">
+        <h2>{{topic.title}}</h2>
+        <p>
+          <span>{{topic.tab|tabName}}</span>
+          {{topic.author.loginname}}
+          <span class="item-note" am-time-ago="topic.last_reply_at">
+          </span>
+        </p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

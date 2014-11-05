@@ -42,7 +42,9 @@ module.exports = function (grunt) {
           ENV: {
             name: 'development',
             debug: true,
-            api: 'https://cnodejs.org/api/v1'
+            // Test user access token
+            accessToken: 'f6d0dc46-d66f-45f9-a7e7-4c1be175a08d',
+            api: 'http://dev.cnodejs.org/api/v1'
           }
         }
       },
@@ -161,7 +163,7 @@ module.exports = function (grunt) {
       }
     },
 
-    
+
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -190,7 +192,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so

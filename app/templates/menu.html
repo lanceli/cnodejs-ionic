@@ -12,6 +12,13 @@
     </ion-header-bar>
     <ion-content class="has-header">
       <ion-list>
+        <ion-item ng-click="login()" ng-if="loginName == null">
+          登录
+        </ion-item>
+        <ion-item nav-clear menu-close class="item-icon-left" ng-if="loginName" href="#/app/user/{{loginName}}">
+          <i class="icon ion-person"></i>
+          {{loginName}}
+        </ion-item>
         <ion-item class="item-divider">
           板块
         </ion-item>

@@ -25,10 +25,19 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
       templateUrl: 'templates/menu.html',
       controller: 'AppCtrl'
     })
+    .state('app.user', {
+      url: '/user/:loginname',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/user.html',
+          controller: 'UserCtrl'
+        }
+      }
+    })
     .state('app.topics', {
       url: '/topics/:tab',
       views: {
-        'menuContent' :{
+        'menuContent': {
           templateUrl: 'templates/topics.html',
           controller: 'TopicsCtrl'
         }
@@ -37,7 +46,7 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
     .state('app.topic', {
       url: '/topic/:id',
       views: {
-        'menuContent' :{
+        'menuContent': {
           templateUrl: 'templates/topic.html',
           controller: 'TopicCtrl'
         }
