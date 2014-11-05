@@ -83,6 +83,14 @@ angular.module('cnodejs.controllers')
 
         // up reply
         if (index === 1) {
+          Topic.upReply(reply.id, function(response) {
+            $log.debug('up reply response:', response);
+            if (response.success) {
+              alert('done');
+            } else {
+              alert(response.data['error_msg']);
+            }
+          });
         }
         return true;
       }

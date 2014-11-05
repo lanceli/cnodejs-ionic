@@ -16,6 +16,10 @@ angular.module('cnodejs.services')
     reply: {
       method: 'post',
       url: ENV.api + '/topic/:id/replies'
+    },
+    upReply: {
+      method: 'post',
+      url: ENV.api + '/reply/:id/ups'
     }
   });
   return {
@@ -31,6 +35,18 @@ angular.module('cnodejs.services')
         id: id,
         accesstoken: currentUser.accesstoken
       }, replyData, function(response) {
+        return callback && callback(response);
+      }, function(response) {
+        return callback && callback(response);
+      });
+    },
+    upReply: function(id, callback) {
+      var currentUser = User.getCurrentUser();
+      $log.debug('current user:', currentUser);
+      resource.upReply({
+        id: id,
+        accesstoken: currentUser.accesstoken
+      }, function(response) {
         return callback && callback(response);
       }, function(response) {
         return callback && callback(response);
