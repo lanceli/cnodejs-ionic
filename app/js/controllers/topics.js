@@ -13,7 +13,6 @@ angular.module('cnodejs.controllers')
   $log.debug('topics ctrl', $stateParams);
 
   $scope.currentTab = Topics.currentTab();
-  $scope.newTopicData  = {};
 
   // check if tab is changed
   if ($stateParams.tab !== Topics.currentTab()) {
@@ -60,6 +59,7 @@ angular.module('cnodejs.controllers')
     $scope.newTopicModal = modal;
   });
 
+  $scope.newTopicData  = {};
   $scope.newTopicId;
 
   // save new topic
@@ -72,7 +72,7 @@ angular.module('cnodejs.controllers')
       $ionicLoading.hide();
       if (response.success) {
         $scope.newTopicId = response['topic_id'];
-        $scope.closeNewTopic();
+        $scope.closeNewTopicModal();
       } else {
         alert(response.data['error_msg']);
       }
@@ -87,12 +87,12 @@ angular.module('cnodejs.controllers')
     }
   });
   // show new topic modal
-  $scope.newTopic = function() {
+  $scope.showNewTopicModal = function() {
     $scope.newTopicModal.show();
   };
 
   // close new topic modal
-  $scope.closeNewTopic = function() {
+  $scope.closeNewTopicModal = function() {
     $scope.newTopicModal.hide();
   };
 });

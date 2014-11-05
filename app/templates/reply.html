@@ -1,0 +1,20 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">回复</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeReplyModal()">关闭</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="saveReply()">
+      <div class="list">
+        <label class="item item-input">
+          <textarea placeholder="内容" ng-model="replyData.content"></textarea>
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">提交</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</div>

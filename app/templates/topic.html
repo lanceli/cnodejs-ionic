@@ -1,12 +1,14 @@
 <ion-view title="详情">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios7-chatbubble-outline" ng-click="showReplyModal()"></button>
+  </ion-nav-buttons>
   <ion-content class="has-header">
-
   <div class="row">
     <div class="col col90">
       <h4>{{topic.title}}</h4>
       <div>
         <strong>
-          {{topic.author.loginname}}
+          <a href="#/app/user/{{topic.author.loginname}}">{{topic.author.loginname}}</a>
         </strong>
         <span class="item-note" am-time-ago="topic.last_reply_at"></span>
       </div>
@@ -21,9 +23,9 @@
     <ion-item class="item-avatar" ng-repeat="reply in topic.replies">
       <img ng-src="{{reply.author.avatar_url}}">
       <p>
-          {{reply.author.loginname}}
-          <span class="item-note" am-time-ago="reply.create_at">
-          </span>
+        {{reply.author.loginname}}
+        <span class="item-note" am-time-ago="reply.create_at">
+        </span>
       </p>
       <div class="reply-content" ng-bind-html="reply.content"></div>
     </ion-item>
