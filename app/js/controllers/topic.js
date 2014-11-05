@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicCtrl', function($scope, $stateParams, $ionicLoading, $ionicModal, $log, Topics, Topic) {
+.controller('TopicCtrl', function($scope, $stateParams, $ionicLoading, $ionicModal, $ionicActionSheet, $log, Topics, Topic) {
   $log.debug('topic ctrl', $stateParams);
   var id = $stateParams.id;
   var topic = Topics.getById(id);
@@ -32,6 +32,8 @@ angular.module('cnodejs.controllers')
 
   // show reply modal
   $scope.showReplyModal = function() {
+    $scope.replyData.content = '';
+    $scope.replyData.reply_id = '';
     $scope.replyModal.show();
   };
 
@@ -54,6 +56,35 @@ angular.module('cnodejs.controllers')
         $scope.closeReplyModal();
       } else {
         alert(response.data['error_msg']);
+      }
+    });
+  };
+
+  // show actions
+  $scope.showActions = function(reply) {
+    $log.debug('action reply:', reply);
+    var replyContent = '@' + reply.author.loginname;
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        {text: '回复'},
+        {text: '赞'}
+      ],
+      titleText: replyContent,
+      cancel: function() {
+      },
+      buttonClicked: function(index) {
+
+        // reply to someone
+        if (index === 0) {
+          $scope.replyData.content = replyContent + ' ';
+          $scope.replyData.reply_id = reply.id;
+          $scope.replyModal.show();
+        }
+
+        // up reply
+        if (index === 1) {
+        }
+        return true;
       }
     });
   };
