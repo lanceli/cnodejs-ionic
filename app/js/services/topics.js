@@ -9,19 +9,25 @@
  */
 
 angular.module('cnodejs.services')
-.factory('Topics', function(ENV, $resource, $log) {
+.factory('Topics', function(ENV, $resource, $log, User) {
   var topics = [];
   var currentTab = 'all';
   var currentPage = 1;
   var hasNextPage = true;
   var resource =  $resource(ENV.api + '/topics', {
-    tab: 'all',
-    page: 1,
-    limit: 10,
-    mdrender: true
+  }, {
+    query: {
+      method: 'get',
+      params: {
+        tab: 'all',
+        page: 1,
+        limit: 10,
+        mdrender: true
+      }
+    }
   });
   var getTopics = function(tab, page, callback) {
-    resource.get({
+    resource.query({
       tab: tab,
       page: page
     }, function(r) {
@@ -82,6 +88,17 @@ angular.module('cnodejs.services')
       } else {
         return null;
       }
+    },
+    saveNewTopic: function(newTopicData, callback) {
+      var currentUser = User.getCurrentUser();
+      $log.debug('current user:', currentUser);
+      resource.save({accesstoken: currentUser.accesstoken}, newTopicData,
+      function(response) {
+        return callback && callback(response);
+      },
+      function(response) {
+        return callback && callback(response);
+      });
     }
   };
 });

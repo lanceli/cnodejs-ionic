@@ -1,0 +1,29 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">发布话题</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeNewTopic()">关闭</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="saveNewTopic()">
+      <div class="list">
+        <label class="item item-input">
+          <select ng-model="newTopicData.tab">
+            <option value="">板块</option>
+            <option ng-if="tab != 'undefined' && tab != 'all'" ng-repeat="(tab, tabName) in tabs" value="{{tab}}">{{tabName}}</option>
+          </select>
+        </label>
+        <label class="item item-input">
+          <input type="text" ng-model="newTopicData.title" placeholder="标题 10字以上">
+        </label>
+        <label class="item item-input">
+          <textarea placeholder="内容" ng-model="newTopicData.content"></textarea>
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">提交</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</div>

@@ -27,7 +27,6 @@ angular.module('cnodejs.services')
         $this.getUserInfo(response.loginname, function(r) {
           user = r.data;
           user.accesstoken = accesstoken;
-          $log.debug(user);
         });
         user.loginname = response.loginname;
         return callback && callback(response);

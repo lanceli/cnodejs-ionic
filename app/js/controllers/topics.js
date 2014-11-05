@@ -9,10 +9,12 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicsCtrl', function($scope, $stateParams, $timeout, $log, Topics) {
+.controller('TopicsCtrl', function($scope, $stateParams, $ionicLoading, $ionicModal, $timeout, $location, $log, Topics, Tabs) {
   $log.debug('topics ctrl', $stateParams);
 
   $scope.currentTab = Topics.currentTab();
+  $scope.newTopicData  = {};
+
   // check if tab is changed
   if ($stateParams.tab !== Topics.currentTab()) {
     $scope.currentTab = Topics.currentTab($stateParams.tab);
@@ -48,5 +50,49 @@ angular.module('cnodejs.controllers')
       $scope.topics = $scope.topics.concat(response.data);
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
+  };
+
+  // Create the new topic modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/newTopic.html', {
+    tabs: Tabs,
+    scope: $scope
+  }).then(function(modal) {
+    $scope.newTopicModal = modal;
+  });
+
+  $scope.newTopicId;
+
+  // save new topic
+  $scope.saveNewTopic = function() {
+    $log.debug('new topic data:', $scope.newTopicData);
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    Topics.saveNewTopic($scope.newTopicData, function(response) {
+      $ionicLoading.hide();
+      if (response.success) {
+        $scope.newTopicId = response['topic_id'];
+        $scope.closeNewTopic();
+      } else {
+        alert(response.data['error_msg']);
+      }
+    });
+  };
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+    if ($scope.newTopicId) {
+      $timeout(function() {
+        $location.path('/app/topic/' + $scope.newTopicId);
+      }, 300);
+    }
+  });
+  // show new topic modal
+  $scope.newTopic = function() {
+    $scope.newTopicModal.show();
+  };
+
+  // close new topic modal
+  $scope.closeNewTopic = function() {
+    $scope.newTopicModal.hide();
   };
 });
