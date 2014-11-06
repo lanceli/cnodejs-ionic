@@ -12,7 +12,7 @@ angular.module('cnodejs.services')
 .factory('Topics', function(ENV, $resource, $log, User) {
   var topics = [];
   var currentTab = 'all';
-  var currentPage = 1;
+  var nextPage = 1;
   var hasNextPage = true;
   var resource =  $resource(ENV.api + '/topics', {
   }, {
@@ -37,19 +37,20 @@ angular.module('cnodejs.services')
   };
   return {
     refresh: function(callback) {
-      getTopics(currentTab, 0, function(response) {
-        currentPage = 1;
+      getTopics(currentTab, 1, function(response) {
+        nextPage = 2;
+        hasNextPage = true;
         topics = response.data;
         return callback && callback(response);
       });
     },
     pagination: function(callback) {
-      getTopics(currentTab, currentPage, function(response) {
+      getTopics(currentTab, nextPage, function(response) {
         if (response.data.length < 10) {
           $log.debug('response data length', response.data.length);
           hasNextPage = false;
         }
-        currentPage++;
+        nextPage++;
         topics = topics.concat(response.data);
         return callback && callback(response);
       });
@@ -68,11 +69,8 @@ angular.module('cnodejs.services')
     },
     resetData: function() {
       topics = [];
-      currentPage = 0;
+      nextPage = 1;
       hasNextPage = true;
-    },
-    getCurrentPage: function() {
-      return currentPage;
     },
     getTopics: function() {
       return topics;
