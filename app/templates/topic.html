@@ -3,12 +3,14 @@
     <button class="button button-icon icon ion-ios7-chatbubble-outline" ng-click="showReplyModal()"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
-  <div class="row">
+  <div class="row topic">
     <div class="col col90">
-      <h4>{{topic.title}}</h4>
-      <div>
+      <h4 class="title">{{topic.title}}</h4>
+      <div class="summary">
         <strong>
-          <a href="#/app/user/{{topic.author.loginname}}">{{topic.author.loginname}}</a>
+          <a href="#/app/user/{{topic.author.loginname}}">
+            <img ng-src="{{topic.author.avatar_url}}" class="avatar">
+            {{topic.author.loginname}}</a>
         </strong>
         <span class="item-note" am-time-ago="topic.last_reply_at"></span>
       </div>

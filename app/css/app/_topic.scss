@@ -1,3 +1,15 @@
+.topic {
+  .title {
+    margin: 0;
+  }
+  .summary {
+    margin: 8px 0;
+  }
+  .avatar {
+    width: 16px;
+    vertical-align: middle;
+  }
+}
 .replies {
   .reply-content  {
     img {
@@ -9,4 +21,3 @@
     }
   }
 }
-

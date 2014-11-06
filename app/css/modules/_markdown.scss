@@ -1,0 +1,13 @@
+.markdown-text {
+  a {
+    color: #778087;
+  }
+  ul {
+    list-style-type: disc;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    ul {
+      list-style-type: circle;
+    }
+  }
+}

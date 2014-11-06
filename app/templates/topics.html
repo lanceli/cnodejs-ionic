@@ -7,10 +7,10 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
 
-    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list class="topics">
-      <ion-item class="item-avatar" ng-class="{'topic-top': topic.top}"
+      <ion-item class="item-avatar"
         collection-repeat="topic in topics"
         collection-item-width="'100%'"
         collection-item-height="getItemHeight(topic, $index)"
@@ -18,10 +18,12 @@
         href="#/app/topic/{{topic.id}}">
         <img ng-src="{{topic.author.avatar_url}}">
         <h2>{{topic.title}}</h2>
-        <p>
-          <span>{{topic.tab|tabName}}</span>
+        <p class="summary">
+          <span ng-if="!topic.top && !topic.good" class="tab">{{topic.tab|tabName}}</span>
+          <span ng-if="topic.top" class="tab top">置顶</span>
+          <span ng-if="topic.good" class="tab good">精华</span>
           {{topic.author.loginname}}
-          <span class="item-note" am-time-ago="topic.last_reply_at">
+          <span class="item-note ago" am-time-ago="topic.last_reply_at">
           </span>
         </p>
       </ion-item>

@@ -1,9 +1,22 @@
-.topics .item-content {
-  padding-right: 16px;
-}
-.item {
-  left: 0;
-  right: 0;
+.topics {
+  .item-content {
+    padding-right: 16px;
+  }
+  .ago,
+  .summary {
+    font-size: 12px;
+  }
+  .tab {
+    background-color: #E5E5E5;
+    color: #999;
+    border-radius: 2px;
+    padding: 2px 4px;
+  }
+  .good,
+  .top {
+    background-color: $node-green;
+    color: #fff;
+  }
 }
 .topic-content {
   img {
