@@ -3,7 +3,11 @@
 // Ionic cnodejs App
 angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cnodejs.filters', 'cnodejs.config'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, amMoment) {
+
+  // set moment locale
+  amMoment.changeLocale('zh-cn');
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -11,7 +15,6 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
-      StatusBar.styleDefault();
     }
   });
 })
