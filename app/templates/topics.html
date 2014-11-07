@@ -21,7 +21,7 @@
         <p class="summary">
           <span ng-if="!topic.top && !topic.good" class="tab">{{topic.tab|tabName}}</span>
           <span ng-if="topic.top" class="tab top">置顶</span>
-          <span ng-if="topic.good" class="tab good">精华</span>
+          <span ng-if="topic.good && !topic.top" class="tab good">精华</span>
           {{topic.author.loginname}}
           <span class="item-note ago" am-time-ago="topic.last_reply_at">
           </span>

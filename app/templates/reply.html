@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" class="reply-create">
   <ion-header-bar>
     <h1 class="title">回复</h1>
     <div class="buttons">
@@ -9,7 +9,7 @@
     <form ng-submit="saveReply()">
       <div class="list">
         <label class="item item-input">
-          <textarea placeholder="内容" ng-model="replyData.content"></textarea>
+          <textarea placeholder="内容" ng-model="replyData.content" rows="15" class="content"></textarea>
         </label>
         <label class="item">
           <input type="hidden" ng-model="replyData.reply_id" />
