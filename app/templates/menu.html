@@ -8,11 +8,11 @@
 
   <ion-side-menu side="left">
     <ion-header-bar align-title="left" class="bar-dark">
-      <img id="logo" src="/img/cnodejs_light.svg">
+      <img id="logo" src="img/cnodejs_light.svg">
     </ion-header-bar>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item ng-click="login()" ng-if="loginName == null">
+        <ion-item on-hold="onHoldLogin()" ng-click="login()" ng-if="loginName == null">
           登录
         </ion-item>
         <ion-item nav-clear menu-close class="item-icon-left" ng-if="loginName" href="#/app/user/{{loginName}}">

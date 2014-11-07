@@ -13,6 +13,33 @@ angular.module('cnodejs.controllers')
   $log.log('app ctrl');
   $scope.loginName = null;
 
+  // login action callback
+  var loginCallback = function(response) {
+    $ionicLoading.hide();
+    if (response.success) {
+      $scope.loginName = response.loginname;
+    } else {
+      alert(response.error_msg);
+    }
+  };
+
+  // on hold login action
+  $scope.onHoldLogin = function() {
+    if(window.cordova && window.cordova.plugins.clipboard) {
+      cordova.plugins.clipboard.paste(function (text) {
+        if (text) {
+          $log.log('get Access Token', text);
+          $ionicLoading.show({
+            template: 'Loading...'
+          });
+          User.login(text, loginCallback(response));
+        }
+      });
+    } else {
+      $log.debug('no clipboad plugin');
+    }
+  };
+
   // assign tabs
   $scope.tabs = Tabs;
 
@@ -26,10 +53,7 @@ angular.module('cnodejs.controllers')
             $ionicLoading.show({
               template: 'Loading...'
             });
-            User.login(result.text, function(response) {
-              $ionicLoading.hide();
-              $scope.loginName = response.loginname;
-            });
+            User.login(result.text, loginCallback(response));
           }
         },
         function (error) {
@@ -41,10 +65,7 @@ angular.module('cnodejs.controllers')
         $ionicLoading.show({
           template: 'Loading...'
         });
-        User.login(ENV.accessToken, function(response) {
-          $ionicLoading.hide();
-          $scope.loginName = response.loginname;
-        });
+        User.login(ENV.accessToken, loginCallback(response));
       } else {
         $log.log('pls do this in device');
       }
