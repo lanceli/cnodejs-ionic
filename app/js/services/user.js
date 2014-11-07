@@ -24,6 +24,7 @@ angular.module('cnodejs.services')
         accesstoken: accesstoken
       }, function(response) {
         $log.debug('post accesstoken:', response);
+        user.accesstoken = accesstoken;
         $this.getUserInfo(response.loginname, function(r) {
           user = r.data;
           user.accesstoken = accesstoken;

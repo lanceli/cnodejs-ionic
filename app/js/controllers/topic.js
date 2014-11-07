@@ -32,6 +32,9 @@ angular.module('cnodejs.controllers')
 
   // show reply modal
   $scope.showReplyModal = function() {
+    if(window.StatusBar) {
+      StatusBar.styleDefault();
+    }
     $scope.replyData.content = '';
     $scope.replyData.reply_id = '';
     $scope.replyModal.show();
@@ -39,6 +42,9 @@ angular.module('cnodejs.controllers')
 
   // close reply modal
   $scope.closeReplyModal = function() {
+    if(window.StatusBar) {
+      StatusBar.styleLightContent();
+    }
     $scope.replyModal.hide();
   };
 

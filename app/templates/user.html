@@ -7,10 +7,9 @@
         <span>{{user.score}}积分</span>
       </ion-item>
       <ion-item class="item-divider">
-        最近回复
+        最近主题
       </ion-item>
-      <ion-item class="item-avatar" ng-repeat="topic in user.recent_replies" href="#/app/topic/{{topic.id}}">
-        <img ng-src="{{topic.author.avatar_url}}">
+      <ion-item ng-repeat="topic in user.recent_topics" href="#/app/topic/{{topic.id}}">
         <h2>{{topic.title}}</h2>
         <p>
           <span>{{topic.tab|tabName}}</span>
@@ -20,9 +19,10 @@
         </p>
       </ion-item>
       <ion-item class="item-divider">
-        最近主题
+        最近回复
       </ion-item>
-      <ion-item ng-repeat="topic in user.recent_topics">
+      <ion-item class="item-avatar" ng-repeat="topic in user.recent_replies" href="#/app/topic/{{topic.id}}">
+        <img ng-src="{{topic.author.avatar_url}}">
         <h2>{{topic.title}}</h2>
         <p>
           <span>{{topic.tab|tabName}}</span>

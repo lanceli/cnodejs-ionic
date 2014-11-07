@@ -88,11 +88,17 @@ angular.module('cnodejs.controllers')
   });
   // show new topic modal
   $scope.showNewTopicModal = function() {
+    if(window.StatusBar) {
+      StatusBar.styleDefault();
+    }
     $scope.newTopicModal.show();
   };
 
   // close new topic modal
   $scope.closeNewTopicModal = function() {
+    if(window.StatusBar) {
+      StatusBar.styleLightContent();
+    }
     $scope.newTopicModal.hide();
   };
 });

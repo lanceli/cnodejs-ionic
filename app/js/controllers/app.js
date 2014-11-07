@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('AppCtrl', function(ENV, $scope, $log, $ionicModal, $ionicLoading, Tabs, User) {
+.controller('AppCtrl', function(ENV, $scope, $log, $ionicModal, $ionicLoading, Tabs, User, Message) {
   $log.log('app ctrl');
   $scope.loginName = null;
 
@@ -18,6 +18,13 @@ angular.module('cnodejs.controllers')
     $ionicLoading.hide();
     if (response.success) {
       $scope.loginName = response.loginname;
+      Message.getMessageCount(function(result) {
+        if (result.error_msg) {
+          alert(response.error_msg);
+        } else {
+          $scope.messagesCount = result.data;
+        }
+      });
     } else {
       alert(response.error_msg);
     }
@@ -32,7 +39,7 @@ angular.module('cnodejs.controllers')
           $ionicLoading.show({
             template: 'Loading...'
           });
-          User.login(text, loginCallback(response));
+          User.login(text, loginCallback);
         }
       });
     } else {
@@ -53,7 +60,7 @@ angular.module('cnodejs.controllers')
             $ionicLoading.show({
               template: 'Loading...'
             });
-            User.login(result.text, loginCallback(response));
+            User.login(result.text, loginCallback);
           }
         },
         function (error) {
@@ -65,7 +72,7 @@ angular.module('cnodejs.controllers')
         $ionicLoading.show({
           template: 'Loading...'
         });
-        User.login(ENV.accessToken, loginCallback(response));
+        User.login(ENV.accessToken, loginCallback);
       } else {
         $log.log('pls do this in device');
       }
