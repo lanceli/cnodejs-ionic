@@ -16,6 +16,14 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
     }
     if(window.StatusBar) {
     }
+
+    if (navigator.splashscreen) {
+      setTimeout(function() {
+        navigator.splashscreen.hide();
+      }, 100);
+    } else {
+      $log.debug('no splash screen plugin');
+    }
   });
 })
 .config(function(ENV, $stateProvider, $urlRouterProvider, $logProvider) {
