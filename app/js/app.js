@@ -3,7 +3,7 @@
 // Ionic cnodejs App
 angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cnodejs.filters', 'cnodejs.config'])
 
-.run(function($ionicPlatform, amMoment) {
+.run(function($ionicPlatform, $log, amMoment) {
 
   // set moment locale
   amMoment.changeLocale('zh-cn');
@@ -31,7 +31,7 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
   $logProvider.debugEnabled(ENV.debug);
   $stateProvider
     .state('app', {
-      url: '/app',
+      url: '',
       abstract: true,
       templateUrl: 'templates/menu.html',
       controller: 'AppCtrl'
@@ -63,7 +63,7 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
         }
       }
     });
-  $urlRouterProvider.otherwise('/app/topics/all');
+  $urlRouterProvider.otherwise('/topics/all');
 });
 
 angular.module('cnodejs.controllers', ['cnodejs.services']);

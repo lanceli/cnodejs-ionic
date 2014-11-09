@@ -15,7 +15,7 @@
         <ion-item on-hold="onHoldLogin()" ng-click="login()" ng-if="loginName == null">
           登录
         </ion-item>
-        <ion-item nav-clear menu-close class="item-icon-left" ng-if="loginName" href="#/app/user/{{loginName}}">
+        <ion-item nav-clear menu-close class="item-icon-left" ng-if="loginName" href="#/user/{{loginName}}">
           <i class="icon ion-person"></i>
           {{loginName}}
           <span ng-if="messagesCount" class="badge badge-assertive">{{messagesCount}}</span>
@@ -23,7 +23,7 @@
         <ion-item class="item-divider">
           板块
         </ion-item>
-        <ion-item nav-clear menu-close ng-if="tab != 'undefined'" ng-repeat="(tab, tabName) in tabs" href="#/app/topics/{{tab}}">
+        <ion-item nav-clear menu-close ng-if="tab != 'undefined'" ng-repeat="(tab, tabName) in tabs" href="#/topics/{{tab}}">
           {{tabName}}
         </ion-item>
         <ion-item class="item-divider">
