@@ -5,6 +5,13 @@
         <img src="{{user.avatar_url}}" alt="" />
         <span>{{user.loginname}}</span>
         <span>{{user.score}}积分</span>
+        <p>
+        注册于：{{user.create_at | amDateFormat:'YYYY-MM-DD hh:mm:ss'}}
+        </p>
+      </ion-item>
+      <ion-item ng-if="user.loginname == loginName" href="#/my/messages">
+        我的消息
+        <span ng-if="messagesCount" class="badge badge-assertive">{{messagesCount}}</span>
       </ion-item>
       <ion-item class="item-divider">
         最近主题

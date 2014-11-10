@@ -9,16 +9,22 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('AppCtrl', function(ENV, $scope, $log, $ionicModal, $ionicLoading, Tabs, User, Message) {
+.controller('AppCtrl', function(ENV, $scope, $log, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages) {
   $log.log('app ctrl');
   $scope.loginName = null;
+
+  // update unread messages count
+  $rootScope.$on('messagesMarkedAsRead', function() {
+    $log.debug('message marked as read broadcast handle');
+    $scope.messagesCount = Messages.currentMessageCount();
+  });
 
   // login action callback
   var loginCallback = function(response) {
     $ionicLoading.hide();
     if (response.success) {
       $scope.loginName = response.loginname;
-      Message.getMessageCount(function(result) {
+      Messages.getMessageCount(function(result) {
         if (result.error_msg) {
           alert(response.error_msg);
         } else {

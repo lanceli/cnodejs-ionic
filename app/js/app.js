@@ -45,6 +45,15 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
         }
       }
     })
+    .state('app.messages', {
+      url: '/my/messages',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/messages.html',
+          controller: 'MessagesCtrl'
+        }
+      }
+    })
     .state('app.topics', {
       url: '/topics/:tab',
       views: {
