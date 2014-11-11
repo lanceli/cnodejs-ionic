@@ -5,7 +5,7 @@
 
 ## Developing
 
-If you'd like to run it locally, and modify something, you can do so by cloning this repo and running the following commands (assuming that you have Node, NPM, Grunt and Bower installed).
+If you'd like to run it locally, and modify something, you can do so by cloning this repo and running the following commands (assuming that you have Node, NPM, Ionc, Cordova, Grunt and Bower installed).
 
 ```
 # Clone and Install dependencies
@@ -26,7 +26,7 @@ $ grunt build:ios --device --release
 Need more detail? Please chekout [Ionic Framework](http://ionicframework.com) and [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
 
 ## Release History
-See the [CHANGELOG](CHANGELOG).
+See the [CHANGELOG](CHANGELOG.md).
 
 ## Contribute
 You are welcome to contribute. 🎉
