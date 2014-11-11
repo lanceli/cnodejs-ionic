@@ -14,7 +14,7 @@
         </strong>
         <span class="item-note" am-time-ago="topic.last_reply_at"></span>
       </div>
-      <div class="topic-content" ng-bind-html="topic.content">
+      <div class="topic-content" ng-bind-html="topic.content | link">
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@
         <span class="item-note" am-time-ago="reply.create_at">
         </span>
       </p>
-      <div class="reply-content" ng-bind-html="reply.content"></div>
+      <div class="reply-content" ng-bind-html="reply.content | link"></div>
     </ion-item>
   </ion-list>
   </ion-content>

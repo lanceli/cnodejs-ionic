@@ -53,6 +53,7 @@
     "org.apache.cordova.console",
     "https://github.com/wildabeast/BarcodeScanner.git",
     "https://github.com/VersoSolutions/CordovaClipboard",
-    "org.apache.cordova.splashscreen"
+    "org.apache.cordova.splashscreen",
+    "org.apache.cordova.inappbrowser"
   ]
 }
