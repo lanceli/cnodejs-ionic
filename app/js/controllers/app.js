@@ -13,6 +13,18 @@ angular.module('cnodejs.controllers')
   $log.log('app ctrl');
   $scope.loginName = null;
 
+  var setBadge = function(num) {
+    // Promot permission request to show badge notifications
+    if (window.cordova && window.cordova.plugins.notification.badge) {
+      cordova.plugins.notification.badge.hasPermission(function (granted) {
+        $log.debug('Permission has been granted: ' + granted);
+        if (granted) {
+          cordova.plugins.notification.badge.set(num);
+        }
+      });
+    }
+  };
+
   // app resume event
   document.addEventListener('resume', function onResume() {
     $log.log('app on resume');
@@ -21,6 +33,7 @@ angular.module('cnodejs.controllers')
         alert(response.error_msg);
       } else {
         $scope.messagesCount = result.data;
+        setBadge($scope.messagesCount);
       }
     });
   }, false);
@@ -29,6 +42,7 @@ angular.module('cnodejs.controllers')
   $rootScope.$on('messagesMarkedAsRead', function() {
     $log.debug('message marked as read broadcast handle');
     $scope.messagesCount = Messages.currentMessageCount();
+    setBadge($scope.messagesCount);
   });
 
   // login action callback
@@ -41,6 +55,7 @@ angular.module('cnodejs.controllers')
           alert(response.error_msg);
         } else {
           $scope.messagesCount = result.data;
+          setBadge($scope.messagesCount);
         }
       });
     } else {

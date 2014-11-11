@@ -3,27 +3,35 @@
 // Ionic cnodejs App
 angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cnodejs.filters', 'cnodejs.config'])
 
-.run(function($ionicPlatform, $log, amMoment) {
+.run(function($ionicPlatform, $log, $timeout, amMoment) {
 
   // set moment locale
   amMoment.changeLocale('zh-cn');
 
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
+    if(window.cordova) {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      if (window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      }
+
+      // Promot permission request to show badge notifications
+      if (window.cordova.plugins.notification.badge) {
+        $timeout(function() {
+          cordova.plugins.notification.badge.promptForPermission();
+        }, 100);
+      }
     }
 
     if (navigator.splashscreen) {
-      setTimeout(function() {
+      $timeout(function() {
         navigator.splashscreen.hide();
       }, 100);
     } else {
       $log.debug('no splash screen plugin');
     }
+
   });
 })
 .config(function(ENV, $stateProvider, $urlRouterProvider, $logProvider) {
