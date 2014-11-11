@@ -13,10 +13,10 @@ angular.module('cnodejs.filters')
   return function(content) {
     if (typeof content === 'string') {
       var userLinkRegex = /href="\/user\/([\S]+)"/g;
-      var externalLinkRegex = /href="([\S]+)"/g;
+      var externalLinkRegex = /href="((?!#\/user\/)[\S]+)"/g;
       return $sce.trustAsHtml(
         content
-        //.replace(userLinkRegex, 'href="#/user/$1"')
+        .replace(userLinkRegex, 'href="#/user/$1"')
         .replace(externalLinkRegex, "onClick=\"window.open('$1', '_blank', 'location=yes')\"")
       );
     }
