@@ -13,6 +13,18 @@ angular.module('cnodejs.controllers')
   $log.log('app ctrl');
   $scope.loginName = null;
 
+  // app resume event
+  document.addEventListener('resume', function onResume() {
+    $log.log('app on resume');
+    Messages.getMessageCount(function(result) {
+      if (result.error_msg) {
+        alert(response.error_msg);
+      } else {
+        $scope.messagesCount = result.data;
+      }
+    });
+  }, false);
+
   // update unread messages count
   $rootScope.$on('messagesMarkedAsRead', function() {
     $log.debug('message marked as read broadcast handle');
