@@ -5,7 +5,7 @@
 
 ## Developing
 
-If you'd like to run it locally, and modify something, you can do so by cloning this repo and running the following commands (assuming that you have Node, NPM, Ionc, Cordova, Grunt and Bower installed).
+If you'd like to run it locally, and modify something, you can do so by cloning this repo and running the following commands (assuming that you have Node, NPM, Ionic, Cordova, Grunt and Bower installed).
 
 ```
 # Clone and Install dependencies
