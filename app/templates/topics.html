@@ -7,7 +7,7 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
 
-    <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
+    <ion-refresher ng-if="topics" pulling-text="下拉刷新..." on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list class="topics">
       <ion-item class="item-avatar"

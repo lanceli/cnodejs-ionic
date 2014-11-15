@@ -8,6 +8,15 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
   // set moment locale
   amMoment.changeLocale('zh-cn');
 
+  // notify
+  if (!navigator.notification) {
+    navigator.notification = {
+      alert: function(message) {
+        window.alert(message);
+      }
+    };
+  }
+
   $ionicPlatform.ready(function() {
     if(window.cordova) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

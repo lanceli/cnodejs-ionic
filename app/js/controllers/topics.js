@@ -31,7 +31,7 @@ angular.module('cnodejs.controllers')
   $log.debug('page load, has next page ? ', $scope.hasNextPage);
   $scope.doRefresh = function() {
     $log.debug('do refresh');
-    Topics.refresh(function(response) {
+    Topics.refresh().$promise.then(function(response) {
       $log.debug('do refresh complete');
       $scope.topics = response.data;
       $scope.$broadcast('scroll.refreshComplete');
@@ -68,14 +68,13 @@ angular.module('cnodejs.controllers')
     $ionicLoading.show({
       template: 'Loading...'
     });
-    Topics.saveNewTopic($scope.newTopicData, function(response) {
+    Topics.saveNewTopic($scope.newTopicData).$promise.then(function(response) {
       $ionicLoading.hide();
-      if (response.success) {
-        $scope.newTopicId = response['topic_id'];
-        $scope.closeNewTopicModal();
-      } else {
-        alert(response.data['error_msg']);
-      }
+      $scope.newTopicId = response['topic_id'];
+      $scope.closeNewTopicModal();
+    }, function(response) {
+      $ionicLoading.hide();
+      navigator.notification.alert(response.data.error_msg);
     });
   };
   $scope.$on('modal.hidden', function() {

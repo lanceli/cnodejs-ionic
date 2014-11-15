@@ -16,8 +16,8 @@ angular.module('cnodejs.controllers')
   $scope.topic = topic;
 
   $scope.loadTopic = function() {
-    Topic.getById(id, function(response) {
-      $scope.topic = response;
+    Topic.getById(id).$promise.then(function(response) {
+      $scope.topic = response.data;
     });
   };
   $scope.loadTopic();
@@ -54,15 +54,15 @@ angular.module('cnodejs.controllers')
     $ionicLoading.show({
       template: 'Loading...'
     });
-    Topic.saveReply(id, $scope.replyData, function(response) {
+    console.log();
+    Topic.saveReply(id, $scope.replyData).$promise.then(function(response) {
       $ionicLoading.hide();
       $log.debug('post reply response:', response);
-      if (response.success) {
-        $scope.loadTopic();
-        $scope.closeReplyModal();
-      } else {
-        alert(response.data['error_msg']);
-      }
+      $scope.loadTopic();
+      $scope.closeReplyModal();
+    }, function(response) {
+      $ionicLoading.hide();
+      navigator.notification.alert(response.data.error_msg);
     });
   };
 
@@ -89,13 +89,11 @@ angular.module('cnodejs.controllers')
 
         // up reply
         if (index === 1) {
-          Topic.upReply(reply.id, function(response) {
+          Topic.upReply(reply.id).$promise.then(function(response) {
             $log.debug('up reply response:', response);
-            if (response.success) {
-              alert('done');
-            } else {
-              alert(response.data['error_msg']);
-            }
+            navigator.notification.alert(response.action === 'up' ? '点赞成功' : '点赞取消');
+          }, function(response) {
+            navigator.notification.alert(response.data.error_msg);
           });
         }
         return true;

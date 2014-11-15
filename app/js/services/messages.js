@@ -28,45 +28,32 @@ angular.module('cnodejs.services')
     currentMessageCount: function() {
       return messagesCount;
     },
-    getMessageCount: function(callback) {
+    getMessageCount: function() {
       $log.debug('get messages count');
       var currentUser = User.getCurrentUser();
       $log.debug('current user:', currentUser);
-      resource.count({
+      return resource.count({
         accesstoken: currentUser.accesstoken
-      }, function(response) {
-        $log.debug('messages count:', response);
-        return callback && callback(response);
-      }, function(response) {
-        return callback && callback(response);
       });
     },
-    getMessages: function(callback) {
+    getMessages: function() {
       $log.debug('get messages');
       var currentUser = User.getCurrentUser();
       $log.debug('current user:', currentUser);
-      resource.get({
+      return resource.get({
         accesstoken: currentUser.accesstoken
-      }, function(response) {
-        $log.debug('messages:', response.data);
-        return callback && callback(response);
-      }, function(response) {
-        return callback && callback(response);
       });
       return messages;
     },
-    markAll: function(callback) {
+    markAll: function() {
       $log.debug('mark all as read');
       var currentUser = User.getCurrentUser();
       $log.debug('current user:', currentUser);
-      resource.markAll({
+      return resource.markAll({
         accesstoken: currentUser.accesstoken
       }, function(response) {
         $log.debug('marked messages as read:', response);
         messagesCount = 0;
-        return callback && callback(response);
-      }, function(response) {
-        return callback && callback(response);
       });
     }
   };

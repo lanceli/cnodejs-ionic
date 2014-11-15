@@ -27,7 +27,7 @@ angular.module('cnodejs.services')
     }
   });
   var getTopics = function(tab, page, callback) {
-    resource.query({
+    return resource.query({
       tab: tab,
       page: page
     }, function(r) {
@@ -36,16 +36,15 @@ angular.module('cnodejs.services')
     });
   };
   return {
-    refresh: function(callback) {
-      getTopics(currentTab, 1, function(response) {
+    refresh: function() {
+      return getTopics(currentTab, 1, function(response) {
         nextPage = 2;
         hasNextPage = true;
         topics = response.data;
-        return callback && callback(response);
       });
     },
     pagination: function(callback) {
-      getTopics(currentTab, nextPage, function(response) {
+      return getTopics(currentTab, nextPage, function(response) {
         if (response.data.length < 10) {
           $log.debug('response data length', response.data.length);
           hasNextPage = false;
@@ -87,16 +86,10 @@ angular.module('cnodejs.services')
         return null;
       }
     },
-    saveNewTopic: function(newTopicData, callback) {
+    saveNewTopic: function(newTopicData) {
       var currentUser = User.getCurrentUser();
       $log.debug('current user:', currentUser);
-      resource.save({accesstoken: currentUser.accesstoken}, newTopicData,
-      function(response) {
-        return callback && callback(response);
-      },
-      function(response) {
-        return callback && callback(response);
-      });
+      return resource.save({accesstoken: currentUser.accesstoken}, newTopicData);
     }
   };
 });

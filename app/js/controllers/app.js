@@ -28,13 +28,11 @@ angular.module('cnodejs.controllers')
   // app resume event
   document.addEventListener('resume', function onResume() {
     $log.log('app on resume');
-    Messages.getMessageCount(function(result) {
-      if (result.error_msg) {
-        alert(response.error_msg);
-      } else {
-        $scope.messagesCount = result.data;
-        setBadge($scope.messagesCount);
-      }
+    Messages.getMessageCount(function(response) {
+      $scope.messagesCount = response.data;
+      setBadge($scope.messagesCount);
+    }, function(response) {
+      navigator.notification.alert(response.data.error_msg);
     });
   }, false);
 
@@ -50,13 +48,11 @@ angular.module('cnodejs.controllers')
     $ionicLoading.hide();
     if (response.success) {
       $scope.loginName = response.loginname;
-      Messages.getMessageCount(function(result) {
-        if (result.error_msg) {
-          alert(response.error_msg);
-        } else {
-          $scope.messagesCount = result.data;
-          setBadge($scope.messagesCount);
-        }
+      Messages.getMessageCount().$promise.then(function(response) {
+        $scope.messagesCount = response.data;
+        setBadge($scope.messagesCount);
+      }, function(response) {
+        navigator.notification.alert(response.data.error_msg);
       });
     } else {
       alert(response.error_msg);
@@ -72,7 +68,7 @@ angular.module('cnodejs.controllers')
           $ionicLoading.show({
             template: 'Loading...'
           });
-          User.login(text, loginCallback);
+          User.login(text).$promise.then(loginCallback);
         }
       });
     } else {
@@ -93,7 +89,7 @@ angular.module('cnodejs.controllers')
             $ionicLoading.show({
               template: 'Loading...'
             });
-            User.login(result.text, loginCallback);
+            User.login(result.text).$promise.then(loginCallback);
           }
         },
         function (error) {
@@ -105,7 +101,7 @@ angular.module('cnodejs.controllers')
         $ionicLoading.show({
           template: 'Loading...'
         });
-        User.login(ENV.accessToken, loginCallback);
+        User.login(ENV.accessToken).$promise.then(loginCallback);
       } else {
         $log.log('pls do this in device');
       }

@@ -12,7 +12,7 @@ angular.module('cnodejs.controllers')
 .controller('UserCtrl', function($scope, $log, $stateParams, User) {
   $log.log('user ctrl');
   var loginName = $stateParams.loginname;
-  User.getUserInfo(loginName, function(response) {
+  User.getUserInfo(loginName).$promise.then(function(response) {
     $scope.user = response.data;
   });
 });

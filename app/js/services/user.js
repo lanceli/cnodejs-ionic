@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.services')
-.factory('User', function(ENV, $resource, $log) {
+.factory('User', function(ENV, $resource, $log, $q) {
   var user = {};
   var resource =  $resource(ENV.api + '/accesstoken', {
     accesstoken: ''
@@ -18,40 +18,38 @@ angular.module('cnodejs.services')
     loginname: ''
   });
   return {
-    login: function(accesstoken, callback) {
+    login: function(accesstoken) {
       var $this = this;
-      resource.save({
+      return resource.save({
         accesstoken: accesstoken
       }, function(response) {
         $log.debug('post accesstoken:', response);
         user.accesstoken = accesstoken;
-        $this.getUserInfo(response.loginname, function(r) {
+        $this.getUserInfo(response.loginname).$promise.then(function(r) {
           user = r.data;
           user.accesstoken = accesstoken;
         });
         user.loginname = response.loginname;
-        return callback && callback(response);
-      }, function(response) {
-        return callback && callback(response);
       });
     },
     getCurrentUser: function() {
       return user;
     },
-    getUserInfo: function(loginName, callback) {
+    getUserInfo: function(loginName) {
+      var userDefer = $q.defer();
       if (user && loginName === user.loginname) {
         $log.debug('get user info from storage:', user);
-        return callback && callback({
+        userDefer.resolve({
           data: user
         });
+        return {
+          $promise: userDefer.promise
+        };
       }
-      userResource.get({
+      return userResource.get({
         loginname: loginName
       }, function(response) {
         $log.debug('get user info:', response);
-        return callback && callback(response);
-      }, function(response) {
-        return callback && callback(response);
       });
     }
   };

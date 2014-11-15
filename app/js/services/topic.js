@@ -23,33 +23,24 @@ angular.module('cnodejs.services')
     }
   });
   return {
-    getById: function(id, callback) {
-      resource.get({id: id}, function(response) {
-        return callback && callback(response.data);
-      });
+    getById: function(id) {
+      return resource.get({id: id});
     },
-    saveReply: function(id, replyData, callback) {
+    saveReply: function(id, replyData) {
       var currentUser = User.getCurrentUser();
       $log.debug('current user:', currentUser);
-      resource.reply({
+      return resource.reply({
         id: id,
         accesstoken: currentUser.accesstoken
-      }, replyData, function(response) {
-        return callback && callback(response);
-      }, function(response) {
-        return callback && callback(response);
-      });
+      }, replyData
+      );
     },
-    upReply: function(id, callback) {
+    upReply: function(id) {
       var currentUser = User.getCurrentUser();
       $log.debug('current user:', currentUser);
-      resource.upReply({
+      return resource.upReply({
         id: id,
         accesstoken: currentUser.accesstoken
-      }, function(response) {
-        return callback && callback(response);
-      }, function(response) {
-        return callback && callback(response);
       });
     }
   };
