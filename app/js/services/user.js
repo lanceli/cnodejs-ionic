@@ -32,6 +32,9 @@ angular.module('cnodejs.services')
         user.loginname = response.loginname;
       });
     },
+    logout: function() {
+      user = {};
+    },
     getCurrentUser: function() {
       return user;
     },

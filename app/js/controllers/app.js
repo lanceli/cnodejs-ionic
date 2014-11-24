@@ -36,6 +36,12 @@ angular.module('cnodejs.controllers')
     });
   }, false);
 
+  // logout
+  $rootScope.$on('logout', function() {
+    $log.debug('logout broadcast handle');
+    $scope.loginName = null;
+  });
+
   // update unread messages count
   $rootScope.$on('messagesMarkedAsRead', function() {
     $log.debug('message marked as read broadcast handle');
@@ -46,17 +52,21 @@ angular.module('cnodejs.controllers')
   // login action callback
   var loginCallback = function(response) {
     $ionicLoading.hide();
-    if (response.success) {
-      $scope.loginName = response.loginname;
-      Messages.getMessageCount().$promise.then(function(response) {
-        $scope.messagesCount = response.data;
-        setBadge($scope.messagesCount);
-      }, function(response) {
-        navigator.notification.alert(response.data.error_msg);
-      });
-    } else {
-      alert(response.error_msg);
-    }
+    $scope.loginName = response.loginname;
+    Messages.getMessageCount().$promise.then(function(response) {
+      $scope.messagesCount = response.data;
+      setBadge($scope.messagesCount);
+    }, function(response) {
+      navigator.notification.alert(response.data.error_msg);
+    });
+  };
+
+  // login error action callback
+  var loginErrorCallback = function(response) {
+    $ionicLoading.show({
+      template: response.data.error_msg,
+      duration: 2000
+    });
   };
 
   // on hold login action
@@ -68,7 +78,7 @@ angular.module('cnodejs.controllers')
           $ionicLoading.show({
             template: 'Loading...'
           });
-          User.login(text).$promise.then(loginCallback);
+          User.login(text).$promise.then(loginCallback, loginErrorCallback);
         }
       });
     } else {
@@ -89,7 +99,7 @@ angular.module('cnodejs.controllers')
             $ionicLoading.show({
               template: 'Loading...'
             });
-            User.login(result.text).$promise.then(loginCallback);
+            User.login(result.text).$promise.then(loginCallback, loginErrorCallback);
           }
         },
         function (error) {
@@ -101,7 +111,7 @@ angular.module('cnodejs.controllers')
         $ionicLoading.show({
           template: 'Loading...'
         });
-        User.login(ENV.accessToken).$promise.then(loginCallback);
+        User.login(ENV.accessToken).$promise.then(loginCallback, loginErrorCallback);
       } else {
         $log.log('pls do this in device');
       }
