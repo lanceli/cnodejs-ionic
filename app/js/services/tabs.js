@@ -10,11 +10,26 @@
 
 angular.module('cnodejs.services')
 .factory('Tabs', function() {
-  return {
-    all: '最新',
-    ask: '问答',
-    share: '分享',
-    job: '招聘',
-    undefined: '其他'
-  };
+  return [
+    {
+      value: 'all',
+      label: '最新'
+    },
+    {
+      value: 'share',
+      label: '分享'
+    },
+    {
+      value: 'ask',
+      label: '问答'
+    },
+    {
+      value: 'job',
+      label: '招聘'
+    },
+    {
+      value: undefined,
+      label: '其他'
+    }
+  ];
 });

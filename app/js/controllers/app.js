@@ -40,6 +40,7 @@ angular.module('cnodejs.controllers')
   $rootScope.$on('logout', function() {
     $log.debug('logout broadcast handle');
     $scope.loginName = null;
+    setBadge(0);
   });
 
   // update unread messages count
@@ -63,9 +64,13 @@ angular.module('cnodejs.controllers')
 
   // login error action callback
   var loginErrorCallback = function(response) {
+    var error = response.status + ' ' + response.statusText;
+    if (response.data.error_msg) {
+      error = response.data.error_msg;
+    }
     $ionicLoading.show({
-      template: response.data.error_msg,
-      duration: 2000
+      template: error,
+      duration: 1600
     });
   };
 

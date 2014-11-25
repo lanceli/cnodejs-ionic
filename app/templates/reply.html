@@ -1,19 +1,18 @@
 <div class="modal" class="reply-create">
   <ion-header-bar>
-    <h1 class="title">回复</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeReplyModal()">关闭</button>
     </div>
+    <h1 class="title">回复</h1>
+    <div class="buttons">
+      <button class="button button-clear button-positive" ng-click="saveReply()">提交</button>
+    </div>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="saveReply()">
+    <form>
       <div class="list">
         <label class="item item-input">
-          <textarea placeholder="内容" ng-model="replyData.content" rows="15" class="content"></textarea>
-        </label>
-        <label class="item">
-          <input type="hidden" ng-model="replyData.reply_id" />
-          <button class="button button-block button-positive" type="submit">提交</button>
+          <textarea placeholder="内容" ng-model="replyData.content" rows="5" class="content"></textarea>
         </label>
       </div>
     </form>

@@ -59,7 +59,9 @@ angular.module('cnodejs.controllers')
     $scope.newTopicModal = modal;
   });
 
-  $scope.newTopicData  = {};
+  $scope.newTopicData = {
+    tab: 'share'
+  };
   $scope.newTopicId;
 
   // save new topic

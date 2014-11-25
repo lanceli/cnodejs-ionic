@@ -1,27 +1,26 @@
 <div class="modal">
   <ion-header-bar>
-    <h1 class="title">发布话题</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeNewTopicModal()">关闭</button>
     </div>
+    <h1 class="title">发布话题</h1>
+    <div class="buttons">
+      <button class="button button-clear button-positive" ng-click="saveNewTopic()">提交</button>
+    </div>
   </ion-header-bar>
   <ion-content class="topic-create">
-    <form ng-submit="saveNewTopic()">
+    <form>
       <div class="list">
         <label class="item item-input item-select">
           <select ng-model="newTopicData.tab" class="topic-tabs">
-            <option value="" disabled>板块</option>
-            <option ng-if="tab != 'undefined' && tab != 'all'" ng-repeat="(tab, tabName) in tabs" value="{{tab}}">{{tabName}}</option>
+            <option ng-if="tab.value != undefined && tab.value != 'all'" ng-repeat="tab in tabs" value="{{tab.value}}">{{tab.label}}</option>
           </select>
         </label>
         <label class="item item-input">
           <input type="text" ng-model="newTopicData.title" placeholder="标题 10字以上">
         </label>
         <label class="item item-input">
-          <textarea placeholder="内容" ng-model="newTopicData.content" rows="15" class="content"></textarea>
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">提交</button>
+          <textarea placeholder="内容" ng-model="newTopicData.content" rows="5" class="content"></textarea>
         </label>
       </div>
     </form>
