@@ -1,7 +1,4 @@
 <ion-view title="详情">
-  <ion-nav-buttons side="right">
-    <button class="button button-icon icon ion-ios7-chatbubble-outline" ng-click="showReplyModal()"></button>
-  </ion-nav-buttons>
   <ion-content class="has-header">
   <div class="row topic">
     <div class="col col90">
@@ -19,6 +16,9 @@
     </div>
   </div>
   <ion-list class="replies">
+    <ion-item ng-if="topic.replies == undefined">
+      加载中...
+    </ion-item>
     <ion-item ng-if="topic.replies.length == 0">
       暂无评论
     </ion-item>
@@ -33,4 +33,12 @@
     </ion-item>
   </ion-list>
   </ion-content>
+  <ion-footer-bar align-title="left" class="bar-light reply-new" keyboard-attach>
+    <label class="item-input-wrapper">
+      <input type="text" placeholder="回复" ng-model="replyData.content" ng-disabled="loginName == null">
+    </label>
+    <button class="button button-small button-clear button-positive" ng-click="saveReply()" ng-disabled="loginName == null">
+      提交
+    </button>
+  </ion-footer-bar>
 </ion-view>

@@ -10,7 +10,7 @@
 
 angular.module('cnodejs.services')
 .factory('User', function(ENV, $resource, $log, $q) {
-  var user = {};
+  var user;
   var resource =  $resource(ENV.api + '/accesstoken', {
     accesstoken: ''
   });
@@ -24,6 +24,7 @@ angular.module('cnodejs.services')
         accesstoken: accesstoken
       }, function(response) {
         $log.debug('post accesstoken:', response);
+        user = {};
         user.accesstoken = accesstoken;
         $this.getUserInfo(response.loginname).$promise.then(function(r) {
           user = r.data;
@@ -33,7 +34,7 @@ angular.module('cnodejs.services')
       });
     },
     logout: function() {
-      user = {};
+      user = undefined;
     },
     getCurrentUser: function() {
       return user;

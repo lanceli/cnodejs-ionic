@@ -9,44 +9,20 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicCtrl', function($scope, $stateParams, $ionicLoading, $ionicModal, $ionicActionSheet, $log, Topics, Topic) {
+.controller('TopicCtrl', function($scope, $stateParams, $timeout, $ionicLoading, $ionicActionSheet, $ionicScrollDelegate, $log, Topics, Topic, User) {
   $log.debug('topic ctrl', $stateParams);
   var id = $stateParams.id;
   var topic = Topics.getById(id);
   $scope.topic = topic;
 
   $scope.loadTopic = function() {
-    Topic.getById(id).$promise.then(function(response) {
+    return Topic.getById(id).$promise.then(function(response) {
       $scope.topic = response.data;
     });
   };
   $scope.loadTopic();
 
   $scope.replyData  = {};
-  // Create the new topic modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/reply.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.replyModal = modal;
-  });
-
-  // show reply modal
-  $scope.showReplyModal = function() {
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-    $scope.replyData.content = '';
-    $scope.replyData.reply_id = '';
-    $scope.replyModal.show();
-  };
-
-  // close reply modal
-  $scope.closeReplyModal = function() {
-    if(window.StatusBar) {
-      StatusBar.styleLightContent();
-    }
-    $scope.replyModal.hide();
-  };
 
   // save reply
   $scope.saveReply = function() {
@@ -58,8 +34,9 @@ angular.module('cnodejs.controllers')
     Topic.saveReply(id, $scope.replyData).$promise.then(function(response) {
       $ionicLoading.hide();
       $log.debug('post reply response:', response);
-      $scope.loadTopic();
-      $scope.closeReplyModal();
+      $scope.loadTopic().then(function() {
+        $ionicScrollDelegate.scrollBottom();;
+      });
     }, function(response) {
       $ionicLoading.hide();
       navigator.notification.alert(response.data.error_msg);
@@ -68,6 +45,9 @@ angular.module('cnodejs.controllers')
 
   // show actions
   $scope.showActions = function(reply) {
+    if (User.getCurrentUser() == undefined) {
+      return;
+    }
     $log.debug('action reply:', reply);
     var replyContent = '@' + reply.author.loginname;
     var hideSheet = $ionicActionSheet.show({
@@ -84,7 +64,9 @@ angular.module('cnodejs.controllers')
         if (index === 0) {
           $scope.replyData.content = replyContent + ' ';
           $scope.replyData.reply_id = reply.id;
-          $scope.replyModal.show();
+          $timeout(function() {
+            document.querySelector('.reply-new input').focus();
+          }, 1);
         }
 
         // up reply
