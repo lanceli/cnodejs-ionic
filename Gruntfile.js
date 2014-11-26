@@ -18,6 +18,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     // Project settings
+    pkg: grunt.file.readJSON('package.json'),
     yeoman: {
       // configurable paths
       app: 'app',
@@ -45,6 +46,7 @@ module.exports = function (grunt) {
       development: {
         constants: {
           ENV: {
+            version: '<%= pkg.version %>',
             name: 'development',
             debug: true,
             // Test user access token
@@ -56,6 +58,7 @@ module.exports = function (grunt) {
       production: {
         constants: {
           ENV: {
+            version: '<%= pkg.version %>',
             name: 'production',
             debug: false,
             api: 'https://cnodejs.org/api/v1'

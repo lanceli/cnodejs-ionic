@@ -7,8 +7,9 @@
   </ion-pane>
 
   <ion-side-menu side="left">
-    <ion-header-bar align-title="left" class="bar-dark">
+    <ion-header-bar class="bar-dark">
       <img id="logo" src="img/cnodejs_light.svg">
+      <h1 ng-if="ENV.name != 'production'" class="title" id="devTag">dev</h1>
     </ion-header-bar>
     <ion-content class="has-header">
       <ion-list>
