@@ -11,6 +11,7 @@
 angular.module('cnodejs.controllers')
 .controller('AppCtrl', function(ENV, $scope, $log, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages) {
   $log.log('app ctrl');
+  $scope.ENV = ENV;
   $scope.loginName = null;
 
   var setBadge = function(num) {
@@ -80,9 +81,7 @@ angular.module('cnodejs.controllers')
       cordova.plugins.clipboard.paste(function (text) {
         if (text) {
           $log.log('get Access Token', text);
-          $ionicLoading.show({
-            template: 'Loading...'
-          });
+          $ionicLoading.show();
           User.login(text).$promise.then(loginCallback, loginErrorCallback);
         }
       });
@@ -101,9 +100,7 @@ angular.module('cnodejs.controllers')
         function (result) {
           if (!result.cancelled) {
             $log.log('get Access Token', result.text);
-            $ionicLoading.show({
-              template: 'Loading...'
-            });
+            $ionicLoading.show();
             User.login(result.text).$promise.then(loginCallback, loginErrorCallback);
           }
         },
@@ -113,9 +110,7 @@ angular.module('cnodejs.controllers')
       );
     } else {
       if (ENV.debug) {
-        $ionicLoading.show({
-          template: 'Loading...'
-        });
+        $ionicLoading.show();
         User.login(ENV.accessToken).$promise.then(loginCallback, loginErrorCallback);
       } else {
         $log.log('pls do this in device');

@@ -23,8 +23,8 @@
         <ion-item class="item-divider">
           板块
         </ion-item>
-        <ion-item nav-clear menu-close ng-if="tab != 'undefined'" ng-repeat="(tab, tabName) in tabs" href="#/topics/{{tab}}">
-          {{tabName}}
+        <ion-item nav-clear menu-close ng-if="tab.value != undefined" ng-repeat="tab in tabs" href="#/topics/{{tab.value}}">
+          {{tab.label}}
         </ion-item>
         <ion-item class="item-divider">
           其他

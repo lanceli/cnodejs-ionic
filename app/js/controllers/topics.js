@@ -67,9 +67,7 @@ angular.module('cnodejs.controllers')
   // save new topic
   $scope.saveNewTopic = function() {
     $log.debug('new topic data:', $scope.newTopicData);
-    $ionicLoading.show({
-      template: 'Loading...'
-    });
+    $ionicLoading.show();
     Topics.saveNewTopic($scope.newTopicData).$promise.then(function(response) {
       $ionicLoading.hide();
       $scope.newTopicId = response['topic_id'];

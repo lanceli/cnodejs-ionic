@@ -35,7 +35,12 @@ module.exports = function (grunt) {
         space: '  ',
         wrap: '"use strict";\n\n {%= __ngModule %}',
         name: 'cnodejs.config',
-        dest: '<%= yeoman.app %>/<%= yeoman.scripts %>/config.js'
+        dest: '<%= yeoman.app %>/<%= yeoman.scripts %>/config.js',
+        constants: {
+          '$ionicLoadingConfig': {
+            template: '请求中...'
+          }
+        }
       },
       development: {
         constants: {
@@ -524,7 +529,7 @@ module.exports = function (grunt) {
     return grunt.task.run(['init', 'concurrent:ionic']);
   });
   grunt.registerTask('build', function() {
-    return grunt.task.run(['init', 'ionic:build:' + this.args.join()]);
+    return grunt.task.run(['compress', 'ionic:build:' + this.args.join()]);
   });
 
   grunt.registerTask('init', [

@@ -27,10 +27,7 @@ angular.module('cnodejs.controllers')
   // save reply
   $scope.saveReply = function() {
     $log.debug('new reply data:', $scope.replyData);
-    $ionicLoading.show({
-      template: 'Loading...'
-    });
-    console.log();
+    $ionicLoading.show();
     Topic.saveReply(id, $scope.replyData).$promise.then(function(response) {
       $ionicLoading.hide();
       $log.debug('post reply response:', response);
