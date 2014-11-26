@@ -37,7 +37,7 @@
     <label class="item-input-wrapper">
       <input type="text" placeholder="回复" ng-model="replyData.content" ng-disabled="loginName == null">
     </label>
-    <button class="button button-small button-clear button-positive" ng-click="saveReply()" ng-disabled="loginName == null">
+    <button class="button button-small button-clear button-positive" ng-click="saveReply()" ng-disabled="loginName == null || replyData.content == ''">
       提交
     </button>
   </ion-footer-bar>

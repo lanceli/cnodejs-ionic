@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicsCtrl', function($scope, $stateParams, $ionicLoading, $ionicModal, $timeout, $location, $log, Topics, Tabs) {
+.controller('TopicsCtrl', function($scope, $stateParams, $ionicLoading, $ionicModal, $timeout, $state, $location, $log, Topics, Tabs) {
   $log.debug('topics ctrl', $stateParams);
 
   $scope.currentTab = Topics.currentTab();
@@ -60,7 +60,9 @@ angular.module('cnodejs.controllers')
   });
 
   $scope.newTopicData = {
-    tab: 'share'
+    tab: 'share',
+    title: '',
+    content: ''
   };
   $scope.newTopicId;
 
@@ -72,6 +74,14 @@ angular.module('cnodejs.controllers')
       $ionicLoading.hide();
       $scope.newTopicId = response['topic_id'];
       $scope.closeNewTopicModal();
+      $timeout(function() {
+        $state.go('app.topic', {
+          id: $scope.newTopicId
+        });
+        $timeout(function() {
+          $scope.doRefresh();
+        }, 300);
+      }, 300);
     }, function(response) {
       $ionicLoading.hide();
       navigator.notification.alert(response.data.error_msg);

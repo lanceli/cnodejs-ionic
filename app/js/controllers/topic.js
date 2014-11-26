@@ -22,7 +22,9 @@ angular.module('cnodejs.controllers')
   };
   $scope.loadTopic();
 
-  $scope.replyData  = {};
+  $scope.replyData  = {
+    content: ''
+  };
 
   // save reply
   $scope.saveReply = function() {
