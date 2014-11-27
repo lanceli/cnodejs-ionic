@@ -1,0 +1,24 @@
+<ion-view title="设置">
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item class="item-toggle">
+      省流量模式
+      <label class="toggle toggle-positive">
+        <input type="checkbox" ng-checked="settings.saverMode" ng-model="settings.saverMode" value="true">
+        <div class="track">
+          <div class="handle"></div>
+        </div>
+      </label>
+      </ion-item>
+      <ion-item class="item-divider">
+      关于
+      </ion-item>
+      <ion-item onclick="window.open('http://blog.lanceli.com/about')">
+      关于作者
+      </ion-item>
+      <ion-item onclick="window.open('https://cnodejs.org/about')">
+      关于CNodeJs
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

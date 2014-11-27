@@ -9,6 +9,6 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('SettingsCtrl', function($scope, $log, $stateParams) {
+.controller('SettingsCtrl', function($scope, $log) {
   $log.log('settings ctrl');
 });

@@ -89,6 +89,15 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
           controller: 'TopicCtrl'
         }
       }
+    })
+    .state('app.settings', {
+      url: '/settings',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/settings.html',
+          controller: 'SettingsCtrl'
+        }
+      }
     });
   $urlRouterProvider.otherwise('/topics/all');
 });
