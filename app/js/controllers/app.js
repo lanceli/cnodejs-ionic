@@ -9,10 +9,13 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('AppCtrl', function(ENV, $scope, $log, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages) {
+.controller('AppCtrl', function(ENV, $scope, $log, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages, Settings) {
   $log.log('app ctrl');
   $scope.ENV = ENV;
   $scope.loginName = null;
+
+  // get settings
+  $scope.settings = Settings.getSettings();
 
   var setBadge = function(num) {
     // Promot permission request to show badge notifications

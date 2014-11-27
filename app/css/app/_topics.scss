@@ -1,6 +1,11 @@
 .topics {
   .item-content {
-    padding: 14px 16px 18px 72px;
+    padding: 14px 16px 18px 14px;
+  }
+  .item-avatar {
+    .item-content {
+      padding-left: 72px;
+    }
   }
   .ago,
   .summary {

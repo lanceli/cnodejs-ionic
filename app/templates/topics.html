@@ -10,13 +10,13 @@
     <ion-refresher ng-if="topics" pulling-text="下拉刷新..." on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list class="topics">
-      <ion-item class="item-avatar"
+    <ion-item ng-class="{'item-avatar': !settings.saverMode}"
         collection-repeat="topic in topics"
         collection-item-width="'100%'"
         collection-item-height="getItemHeight(topic, $index)"
         ng-style="{height: getItemHeight(topic, $index)}"
         href="#/topic/{{topic.id}}">
-        <img ng-src="{{topic.author.avatar_url}}">
+        <img ng-src="{{topic.author.avatar_url}}" ng-if="!settings.saverMode">
         <h2>{{topic.title}}</h2>
         <p class="summary">
           <span ng-if="!topic.top && !topic.good" class="tab">{{topic.tab|tabName}}</span>
