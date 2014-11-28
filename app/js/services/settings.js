@@ -9,14 +9,18 @@
  */
 
 angular.module('cnodejs.services')
-.factory('Settings', function(ENV, $resource, $log, User) {
-  var settings = {
+.factory('Settings', function(ENV, $resource, $log, Storage) {
+  var storageKey = 'settings';
+  var settings = Storage.get(storageKey) || {
     saverMode: true
   };
   return {
     getSettings: function() {
       $log.debug('get settings', settings);
       return settings;
+    },
+    save: function() {
+      Storage.set(storageKey, settings);
     }
   };
 });

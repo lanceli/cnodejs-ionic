@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('SettingsCtrl', function($scope, $log, ENV) {
+.controller('SettingsCtrl', function($scope, $log, ENV, Settings) {
   $log.log('settings ctrl');
 
   // mail feedback
@@ -26,4 +26,11 @@ angular.module('cnodejs.controllers')
       window.open('mailto:' + feedbackMailAddr + '?subject=' + feedbackMailSubject);
     }
   };
+
+
+  // save settings on destroy
+  $scope.$on("$destroy", function(){
+    $log.debug('settings controller on destroy');
+    Settings.save();
+  });
 });
