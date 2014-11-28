@@ -56,6 +56,7 @@
     "org.apache.cordova.splashscreen",
     "org.apache.cordova.inappbrowser",
     "https://github.com/katzer/cordova-plugin-badge.git",
-    "org.apache.cordova.dialogs"
+    "org.apache.cordova.dialogs",
+    "https://github.com/katzer/cordova-plugin-email-composer.git"
   ]
 }
