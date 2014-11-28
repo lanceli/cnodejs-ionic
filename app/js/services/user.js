@@ -39,6 +39,7 @@ angular.module('cnodejs.services')
       Storage.remove(storageKey);
     },
     getCurrentUser: function() {
+      $log.debug('current user:', user);
       return user;
     },
     getUserInfo: function(loginName) {

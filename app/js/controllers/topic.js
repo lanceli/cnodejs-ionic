@@ -44,7 +44,7 @@ angular.module('cnodejs.controllers')
 
   // show actions
   $scope.showActions = function(reply) {
-    if (User.getCurrentUser() == undefined) {
+    if (User.getCurrentUser().loginname === undefined) {
       return;
     }
     $log.debug('action reply:', reply);

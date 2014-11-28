@@ -31,7 +31,6 @@ angular.module('cnodejs.services')
     getMessageCount: function() {
       $log.debug('get messages count');
       var currentUser = User.getCurrentUser();
-      $log.debug('current user:', currentUser);
       return resource.count({
         accesstoken: currentUser.accesstoken
       });
@@ -39,7 +38,6 @@ angular.module('cnodejs.services')
     getMessages: function() {
       $log.debug('get messages');
       var currentUser = User.getCurrentUser();
-      $log.debug('current user:', currentUser);
       return resource.get({
         accesstoken: currentUser.accesstoken
       });
@@ -48,7 +46,6 @@ angular.module('cnodejs.services')
     markAll: function() {
       $log.debug('mark all as read');
       var currentUser = User.getCurrentUser();
-      $log.debug('current user:', currentUser);
       return resource.markAll({
         accesstoken: currentUser.accesstoken
       }, function(response) {

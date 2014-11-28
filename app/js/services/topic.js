@@ -28,7 +28,6 @@ angular.module('cnodejs.services')
     },
     saveReply: function(id, replyData) {
       var currentUser = User.getCurrentUser();
-      $log.debug('current user:', currentUser);
       return resource.reply({
         id: id,
         accesstoken: currentUser.accesstoken
@@ -37,7 +36,6 @@ angular.module('cnodejs.services')
     },
     upReply: function(id) {
       var currentUser = User.getCurrentUser();
-      $log.debug('current user:', currentUser);
       return resource.upReply({
         id: id,
         accesstoken: currentUser.accesstoken

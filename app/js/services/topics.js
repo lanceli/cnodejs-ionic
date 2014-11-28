@@ -88,7 +88,6 @@ angular.module('cnodejs.services')
     },
     saveNewTopic: function(newTopicData) {
       var currentUser = User.getCurrentUser();
-      $log.debug('current user:', currentUser);
       return resource.save({accesstoken: currentUser.accesstoken}, newTopicData);
     }
   };
