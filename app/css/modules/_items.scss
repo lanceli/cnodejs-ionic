@@ -2,9 +2,19 @@
   left: 0;
   right: 0;
 }
+.item-divider {
+  color: #555;
+  font-weight: normal;
+}
+.item-gap {
+  border: 0 none;
+}
 .saverMode {
   .item-avatar {
     padding-left: 14px;
+    &.item-complex {
+      padding-left: 0;
+    }
     > img {
       &:first-child {
         -webkit-transform: translate3d(-2000px, -2000px, 0px);

@@ -12,6 +12,8 @@ angular.module('cnodejs.controllers')
 .controller('SettingsCtrl', function($scope, $log, ENV, Settings) {
   $log.log('settings ctrl');
 
+  $scope.now = new Date();
+
   // mail feedback
   var feedbackMailAddr = 'hi@lanceli.com';
   var feedbackMailSubject = 'CNodeJs Feedback v' + ENV.version;

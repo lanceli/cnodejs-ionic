@@ -4,6 +4,8 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <ion-list>
+      <ion-item class="item-divider item-gap">
+      </ion-item>
       <ion-item ng-click="feedback()">
         意见与反馈
         <span class="item-note">
@@ -22,6 +24,12 @@
       <ion-item class="item-divider">
         关于
       </ion-item>
+      <ion-item>
+        版本
+        <span class="item-note">
+          {{ENV.version}}
+        </span>
+      </ion-item>
       <ion-item onclick="window.open('http://blog.lanceli.com/about', '_blank', 'location=yes')">
         关于作者
       </ion-item>
@@ -29,5 +37,8 @@
         关于CNodeJs
       </ion-item>
     </ion-list>
+    <div id="copyright">
+      &copy; {{now | date:'yyyy'}} Lance Li
+    </div>
   </ion-content>
 </ion-view>
