@@ -12,7 +12,8 @@ angular.module('cnodejs.controllers')
 .controller('AppCtrl', function(ENV, $scope, $log, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages, Settings) {
   $log.log('app ctrl');
   $scope.ENV = ENV;
-  $scope.loginName = null;
+  var currentUser = User.getCurrentUser();
+  $scope.loginName = currentUser.loginname || null;
 
   // get settings
   $scope.settings = Settings.getSettings();

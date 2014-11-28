@@ -9,14 +9,15 @@
  */
 
 angular.module('cnodejs.services')
-.factory('User', function(ENV, $resource, $log, $q) {
-  var user;
-  var resource =  $resource(ENV.api + '/accesstoken', {
+.factory('User', function(ENV, $resource, $log, $q, Storage) {
+  var storageKey = 'user';
+  var resource = $resource(ENV.api + '/accesstoken', {
     accesstoken: ''
   });
-  var userResource =  $resource(ENV.api + '/user/:loginname', {
+  var userResource = $resource(ENV.api + '/user/:loginname', {
     loginname: ''
   });
+  var user = Storage.get(storageKey) || {};
   return {
     login: function(accesstoken) {
       var $this = this;
@@ -24,17 +25,18 @@ angular.module('cnodejs.services')
         accesstoken: accesstoken
       }, function(response) {
         $log.debug('post accesstoken:', response);
-        user = {};
         user.accesstoken = accesstoken;
         $this.getUserInfo(response.loginname).$promise.then(function(r) {
           user = r.data;
           user.accesstoken = accesstoken;
+          Storage.set(storageKey, user);
         });
         user.loginname = response.loginname;
       });
     },
     logout: function() {
-      user = undefined;
+      user = {};
+      Storage.remove(storageKey);
     },
     getCurrentUser: function() {
       return user;
