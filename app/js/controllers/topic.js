@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicCtrl', function($scope, $stateParams, $timeout, $ionicLoading, $ionicActionSheet, $ionicScrollDelegate, $log, Topics, Topic, User) {
+.controller('TopicCtrl', function($scope, $rootScope, $stateParams, $timeout, $ionicLoading, $ionicActionSheet, $ionicScrollDelegate, $log, Topics, Topic, User) {
   $log.debug('topic ctrl', $stateParams);
   var id = $stateParams.id;
   var topic = Topics.getById(id);
@@ -36,10 +36,7 @@ angular.module('cnodejs.controllers')
       $scope.loadTopic().then(function() {
         $ionicScrollDelegate.scrollBottom();;
       });
-    }, function(response) {
-      $ionicLoading.hide();
-      navigator.notification.alert(response.data.error_msg);
-    });
+    }, $rootScope.requestErrorHandler);
   };
 
   // show actions

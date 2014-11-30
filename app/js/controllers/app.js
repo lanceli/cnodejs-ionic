@@ -11,12 +11,33 @@
 angular.module('cnodejs.controllers')
 .controller('AppCtrl', function(ENV, $scope, $log, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages, Settings) {
   $log.log('app ctrl');
+
+  // environment config
   $scope.ENV = ENV;
+
+  // get current user
   var currentUser = User.getCurrentUser();
   $scope.loginName = currentUser.loginname || null;
 
-  // get settings
+  // get user settings
   $scope.settings = Settings.getSettings();
+
+  // error handler
+  $rootScope.requestErrorHandler = function(options, callback) {
+    return function(response) {
+      var error = response.status + ' ' + response.statusText;
+      if (response.data && response.data.error_msg) {
+        error = response.data.error_msg;
+      }
+      var o = options || {};
+      angular.extend(o, {
+        template: 'Error: ' + error,
+        duration: 1000
+      });
+      $ionicLoading.show(o);
+      return callback && callback();
+    };
+  };
 
   var setBadge = function(num) {
     // Promot permission request to show badge notifications
@@ -67,18 +88,6 @@ angular.module('cnodejs.controllers')
     });
   };
 
-  // login error action callback
-  var loginErrorCallback = function(response) {
-    var error = response.status + ' ' + response.statusText;
-    if (response.data.error_msg) {
-      error = response.data.error_msg;
-    }
-    $ionicLoading.show({
-      template: error,
-      duration: 1600
-    });
-  };
-
   // on hold login action
   $scope.onHoldLogin = function() {
     if(window.cordova && window.cordova.plugins.clipboard) {
@@ -86,7 +95,7 @@ angular.module('cnodejs.controllers')
         if (text) {
           $log.log('get Access Token', text);
           $ionicLoading.show();
-          User.login(text).$promise.then(loginCallback, loginErrorCallback);
+          User.login(text).$promise.then(loginCallback, $rootScope.requestErrorHandler());
         }
       });
     } else {
@@ -105,7 +114,7 @@ angular.module('cnodejs.controllers')
           if (!result.cancelled) {
             $log.log('get Access Token', result.text);
             $ionicLoading.show();
-            User.login(result.text).$promise.then(loginCallback, loginErrorCallback);
+            User.login(result.text).$promise.then(loginCallback, $rootScope.requestErrorHandler());
           }
         },
         function (error) {
@@ -115,7 +124,7 @@ angular.module('cnodejs.controllers')
     } else {
       if (ENV.debug) {
         $ionicLoading.show();
-        User.login(ENV.accessToken).$promise.then(loginCallback, loginErrorCallback);
+        User.login(ENV.accessToken).$promise.then(loginCallback, $rootScope.requestErrorHandler());
       } else {
         $log.log('pls do this in device');
       }

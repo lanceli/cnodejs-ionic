@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicsCtrl', function($scope, $stateParams, $ionicLoading, $ionicModal, $timeout, $state, $location, $log, Topics, Tabs) {
+.controller('TopicsCtrl', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicModal, $timeout, $state, $location, $log, Topics, Tabs) {
   $log.debug('topics ctrl', $stateParams);
 
   $scope.currentTab = Topics.currentTab();
@@ -22,33 +22,46 @@ angular.module('cnodejs.controllers')
   }
 
   $scope.topics = Topics.getTopics();
-  $scope.getItemHeight = function() {
-    return 75;
-  };
 
   // pagination
   $scope.hasNextPage = Topics.hasNextPage();
+  $scope.loadError = false;
   $log.debug('page load, has next page ? ', $scope.hasNextPage);
   $scope.doRefresh = function() {
     $log.debug('do refresh');
     Topics.refresh().$promise.then(function(response) {
       $log.debug('do refresh complete');
       $scope.topics = response.data;
+      $scope.hasNextPage = true;
+      $scope.loadError = false;
       $scope.$broadcast('scroll.refreshComplete');
-    });
+    }, $rootScope.requestErrorHandler({
+      noBackdrop: true
+    }, function() {
+      $scope.loadError = true;
+      $scope.$broadcast('scroll.refreshComplete');
+    })
+    );
   };
   $scope.loadMore = function() {
     $log.debug('load more');
-    Topics.pagination(function(response) {
+    Topics.pagination().$promise.then(function(response) {
       $log.debug('load more complete');
       $scope.hasNextPage = false;
+      $scope.loadError = false;
       $timeout(function() {
         $scope.hasNextPage = Topics.hasNextPage();
         $log.debug('has next page ? ', $scope.hasNextPage);
       }, 100);
       $scope.topics = $scope.topics.concat(response.data);
       $scope.$broadcast('scroll.infiniteScrollComplete');
-    });
+    }, $rootScope.requestErrorHandler({
+      noBackdrop: true
+    }, function() {
+      $scope.loadError = true;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    })
+    );
   };
 
   // Create the new topic modal that we will use later
@@ -82,10 +95,7 @@ angular.module('cnodejs.controllers')
           $scope.doRefresh();
         }, 300);
       }, 300);
-    }, function(response) {
-      $ionicLoading.hide();
-      navigator.notification.alert(response.data.error_msg);
-    });
+    }, $rootScope.requestErrorHandler);
   };
   $scope.$on('modal.hidden', function() {
     // Execute action

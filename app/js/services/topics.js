@@ -23,7 +23,8 @@ angular.module('cnodejs.services')
         page: 1,
         limit: 10,
         mdrender: true
-      }
+      },
+      timeout: 8000
     }
   });
   var getTopics = function(tab, page, callback) {
@@ -43,7 +44,7 @@ angular.module('cnodejs.services')
         topics = response.data;
       });
     },
-    pagination: function(callback) {
+    pagination: function() {
       return getTopics(currentTab, nextPage, function(response) {
         if (response.data.length < 10) {
           $log.debug('response data length', response.data.length);
@@ -51,7 +52,6 @@ angular.module('cnodejs.services')
         }
         nextPage++;
         topics = topics.concat(response.data);
-        return callback && callback(response);
       });
     },
     currentTab: function(newTab) {
