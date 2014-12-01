@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('AppCtrl', function(ENV, $scope, $log, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages, Settings) {
+.controller('AppCtrl', function(ENV, $scope, $log, $timeout, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages, Settings) {
   $log.log('app ctrl');
 
   // environment config
@@ -90,12 +90,20 @@ angular.module('cnodejs.controllers')
 
   // on hold login action
   $scope.onHoldLogin = function() {
+    $scope.processing = true;
     if(window.cordova && window.cordova.plugins.clipboard) {
       cordova.plugins.clipboard.paste(function (text) {
+        $scope.processing = false;
         if (text) {
           $log.log('get Access Token', text);
           $ionicLoading.show();
           User.login(text).$promise.then(loginCallback, $rootScope.requestErrorHandler());
+        } else {
+          $ionicLoading.show({
+            noBackdrop: true,
+            template: '粘贴版无内容',
+            duration: 1000
+          });
         }
       });
     } else {
@@ -108,9 +116,17 @@ angular.module('cnodejs.controllers')
 
   // do login
   $scope.login = function() {
+    if ($scope.processing) {
+      return;
+    }
     if(window.cordova && window.cordova.plugins.barcodeScanner) {
+      $scope.processing = true;
+      $timeout(function() {
+        $scope.processing = false;
+      }, 500);
       cordova.plugins.barcodeScanner.scan(
         function (result) {
+          $scope.processing = false;
           if (!result.cancelled) {
             $log.log('get Access Token', result.text);
             $ionicLoading.show();
@@ -118,7 +134,12 @@ angular.module('cnodejs.controllers')
           }
         },
         function (error) {
-          alert('Scanning failed: ' + error);
+          $scope.processing = false;
+          $ionicLoading.show({
+            noBackdrop: true,
+            template: 'Scanning failed: ' + error,
+            duration: 1000
+          });
         }
       );
     } else {

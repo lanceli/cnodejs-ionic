@@ -15,6 +15,7 @@
       <ion-list>
         <ion-item on-hold="onHoldLogin()" ng-click="login()" ng-if="loginName == null">
           登录
+          <i class="icon ion-looping" ng-if="processing"></i>
         </ion-item>
         <ion-item nav-clear menu-close class="item-icon-left" ng-if="loginName" href="#/user/{{loginName}}">
           <i class="icon ion-person"></i>
