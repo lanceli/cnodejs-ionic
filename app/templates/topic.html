@@ -23,7 +23,7 @@
       暂无评论
     </ion-item>
     <ion-item class="item-avatar" ng-repeat="reply in topic.replies" ng-click="showActions(reply)">
-      <img ng-src="{{reply.author.avatar_url}}">
+      <img ng-src="{{reply.author.avatar_url}}" ng-if="!settings.saverMode">
       <p>
         {{reply.author.loginname}}
         <span class="item-note" am-time-ago="reply.create_at">
