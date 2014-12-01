@@ -15,6 +15,11 @@ angular.module('cnodejs.controllers')
   var topic = Topics.getById(id);
   $scope.topic = topic;
 
+  // track view
+  if (window.analytics) {
+    window.analytics.trackView('topic view');
+  }
+
   $scope.loadTopic = function() {
     return Topic.getById(id).$promise.then(function(response) {
       $scope.topic = response.data;

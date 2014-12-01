@@ -11,6 +11,12 @@
 angular.module('cnodejs.controllers')
 .controller('MessagesCtrl', function($scope, $log, $stateParams, $rootScope, Messages) {
   $log.log('messages ctrl');
+
+  // track view
+  if (window.analytics) {
+    window.analytics.trackView('messages view');
+  }
+
   Messages.getMessages().$promise.then(function(response) {
     $scope.messages = response.data;
     if ($scope.messages.hasnot_read_messages.length > 0) {

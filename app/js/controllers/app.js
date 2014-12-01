@@ -101,11 +101,16 @@ angular.module('cnodejs.controllers')
         } else {
           $ionicLoading.show({
             noBackdrop: true,
-            template: '粘贴版无内容',
+            template: '粘贴板无内容',
             duration: 1000
           });
         }
       });
+
+      // track event
+      if (window.analytics) {
+        window.analytics.trackEvent('User', 'clipboard login');
+      }
     } else {
       $log.debug('no clipboad plugin');
     }
@@ -142,6 +147,11 @@ angular.module('cnodejs.controllers')
           });
         }
       );
+
+      // track event
+      if (window.analytics) {
+        window.analytics.trackEvent('User', 'scan login');
+      }
     } else {
       if (ENV.debug) {
         $ionicLoading.show();

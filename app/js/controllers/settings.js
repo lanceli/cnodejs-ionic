@@ -12,6 +12,11 @@ angular.module('cnodejs.controllers')
 .controller('SettingsCtrl', function($scope, $log, ENV, Settings) {
   $log.log('settings ctrl');
 
+  // track view
+  if (window.analytics) {
+    window.analytics.trackView('settings view');
+  }
+
   $scope.now = new Date();
 
   // mail feedback

@@ -1,9 +1,9 @@
 'use strict';
 
 // Ionic cnodejs App
-angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cnodejs.filters', 'cnodejs.config'])
+angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cnodejs.filters', 'cnodejs.directives', 'cnodejs.config'])
 
-.run(function($ionicPlatform, $log, $timeout, amMoment) {
+.run(function($ionicPlatform, $log, $timeout, amMoment, ENV) {
 
   // set moment locale
   amMoment.changeLocale('zh-cn');
@@ -19,6 +19,12 @@ angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cno
 
   $ionicPlatform.ready(function() {
     if(window.cordova) {
+
+      // setup google analytics
+      if (window.analytics && ENV.name === 'production') {
+        window.analytics.startTrackerWithId('UA-57246029-1');
+      }
+
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       if (window.cordova.plugins.Keyboard) {

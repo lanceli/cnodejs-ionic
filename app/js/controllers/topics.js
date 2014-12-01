@@ -12,6 +12,11 @@ angular.module('cnodejs.controllers')
 .controller('TopicsCtrl', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicModal, $timeout, $state, $location, $log, Topics, Tabs) {
   $log.debug('topics ctrl', $stateParams);
 
+  // track view
+  if (window.analytics) {
+    window.analytics.trackView('topics view');
+  }
+
   $scope.currentTab = Topics.currentTab();
 
   // check if tab is changed
@@ -107,6 +112,12 @@ angular.module('cnodejs.controllers')
   });
   // show new topic modal
   $scope.showNewTopicModal = function() {
+
+    // track view
+    if (window.analytics) {
+      window.analytics.trackView('new topic view');
+    }
+
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
