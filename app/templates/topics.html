@@ -15,7 +15,7 @@
         collection-item-width="'100%'"
         collection-item-height="75"
         href="#/topic/{{topic.id}}">
-        <img ng-src="{{topic.author.avatar_url}}" ng-if="!settings.saverMode">
+        <img ng-src="{{topic.author.avatar_url}}" ng-if="!settings.saverMode" reset-img>
         <h2>{{topic.title}}</h2>
         <p class="summary">
           <span ng-if="!topic.top && !topic.good" class="tab">{{topic.tab|tabName}}</span>

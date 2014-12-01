@@ -113,3 +113,5 @@ angular.module('cnodejs.controllers', ['cnodejs.services']);
 angular.module('cnodejs.services', ['ngResource', 'cnodejs.config']);
 
 angular.module('cnodejs.filters', ['cnodejs.services']);
+
+angular.module('cnodejs.directives', []);
