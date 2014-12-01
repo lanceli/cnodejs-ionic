@@ -41,7 +41,8 @@ angular.module('cnodejs.controllers')
 
   // show actions
   $scope.showActions = function(reply) {
-    if (User.getCurrentUser().loginname === undefined) {
+    var currentUser = User.getCurrentUser();
+    if (currentUser.loginname === undefined || currentUser.loginname === reply.author.loginname) {
       return;
     }
     $log.debug('action reply:', reply);
@@ -69,10 +70,14 @@ angular.module('cnodejs.controllers')
         if (index === 1) {
           Topic.upReply(reply.id).$promise.then(function(response) {
             $log.debug('up reply response:', response);
-            navigator.notification.alert(response.action === 'up' ? '点赞成功' : '点赞取消');
-          }, function(response) {
-            navigator.notification.alert(response.data.error_msg);
-          });
+            $ionicLoading.show({
+              noBackdrop: true,
+              template: response.action === 'up' ? '点赞成功' : '点赞已取消',
+              duration: 1000
+            });
+          }, $rootScope.requestErrorHandler({
+            noBackdrop: true,
+          }));
         }
         return true;
       }
