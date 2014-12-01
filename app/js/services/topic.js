@@ -15,31 +15,32 @@ angular.module('cnodejs.services')
   }, {
     reply: {
       method: 'post',
-      url: ENV.api + '/topic/:id/replies'
+      url: ENV.api + '/topic/:topicId/replies'
     },
     upReply: {
       method: 'post',
-      url: ENV.api + '/reply/:id/ups'
+      url: ENV.api + '/reply/:replyId/ups'
     }
   });
   return {
     getById: function(id) {
       return resource.get({id: id});
     },
-    saveReply: function(id, replyData) {
+    saveReply: function(topicId, replyData) {
       var currentUser = User.getCurrentUser();
       return resource.reply({
-        id: id,
+        topicId: topicId,
         accesstoken: currentUser.accesstoken
       }, replyData
       );
     },
-    upReply: function(id) {
+    upReply: function(replyId) {
       var currentUser = User.getCurrentUser();
       return resource.upReply({
-        id: id,
+        replyId: replyId,
         accesstoken: currentUser.accesstoken
-      });
+      }, null
+      );
     }
   };
 });
