@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.services')
-.factory('Topic', function(ENV, $resource, $log, $q, User) {
+.factory('Topic', function(ENV, $resource, $log, $q, User, Settings) {
   var topic;
   var resource =  $resource(ENV.api + '/topic/:id', {
     id: '@id',
@@ -34,16 +34,24 @@ angular.module('cnodejs.services')
           $promise: topicDefer.promise
         };
       }
+      return this.get(id);
+    },
+    get: function(id) {
       return resource.get({id: id}, function(response) {
         topic = response.data;
       });
     },
     saveReply: function(topicId, replyData) {
+      var reply = angular.extend({}, replyData);
       var currentUser = User.getCurrentUser();
+      // add send from
+      if (Settings.getSettings().sendFrom) {
+        reply.content = replyData.content + '\n 发自 CNodeJs ionic';
+      }
       return resource.reply({
         topicId: topicId,
         accesstoken: currentUser.accesstoken
-      }, replyData
+      }, reply
       );
     },
     upReply: function(replyId) {

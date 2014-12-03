@@ -27,6 +27,12 @@ angular.module('cnodejs.controllers')
   };
   $scope.loadTopic();
 
+  $scope.reloadTopic = function() {
+    return Topic.get(id).$promise.then(function(response) {
+      $scope.topic = response.data;
+    });
+  };
+
   $scope.replyData  = {
     content: ''
   };
@@ -38,7 +44,7 @@ angular.module('cnodejs.controllers')
     Topic.saveReply(id, $scope.replyData).$promise.then(function(response) {
       $ionicLoading.hide();
       $log.debug('post reply response:', response);
-      $scope.loadTopic().then(function() {
+      $scope.reloadTopic().then(function() {
         $ionicScrollDelegate.scrollBottom();
       });
     }, $rootScope.requestErrorHandler);

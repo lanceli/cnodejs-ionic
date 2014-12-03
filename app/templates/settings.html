@@ -6,16 +6,19 @@
     <ion-list>
       <ion-item class="item-divider item-gap">
       </ion-item>
-      <ion-item ng-click="feedback()">
-        意见与反馈
-        <span class="item-note">
-          Email
-        </span>
+      <ion-item class="item-toggle">
+        小尾巴
+        <label class="toggle toggle-positive">
+          <input type="checkbox" ng-checked="settings.sendFrom" ng-model="settings.sendFrom">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
       </ion-item>
       <ion-item class="item-toggle">
         省流量模式
         <label class="toggle toggle-positive">
-          <input type="checkbox" ng-checked="settings.saverMode" ng-model="settings.saverMode" value="true">
+          <input type="checkbox" ng-checked="settings.saverMode" ng-model="settings.saverMode">
           <div class="track">
             <div class="handle"></div>
           </div>
@@ -28,6 +31,12 @@
         版本
         <span class="item-note">
           {{ENV.version}}
+        </span>
+      </ion-item>
+      <ion-item ng-click="feedback()">
+        意见与反馈
+        <span class="item-note">
+          Email
         </span>
       </ion-item>
       <ion-item onclick="window.open('http://blog.lanceli.com/about', '_blank', 'location=yes')">

@@ -41,8 +41,8 @@ angular.module('cnodejs.services')
       return user;
     },
     getUserInfo: function(loginName) {
-      var userDefer = $q.defer();
       if (user && loginName === user.loginname) {
+        var userDefer = $q.defer();
         $log.debug('get user info from storage:', user);
         userDefer.resolve({
           data: user

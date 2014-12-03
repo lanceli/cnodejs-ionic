@@ -12,6 +12,7 @@ angular.module('cnodejs.services')
 .factory('Settings', function(ENV, $resource, $log, Storage) {
   var storageKey = 'settings';
   var settings = Storage.get(storageKey) || {
+    sendFrom: true,
     saverMode: true
   };
   return {

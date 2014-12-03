@@ -16,7 +16,7 @@
     </div>
   </div>
   <ion-list class="replies">
-    <ion-item ng-if="topic.replies == undefined">
+    <ion-item class="item-loading" ng-if="topic.replies == undefined">
       加载中...
     </ion-item>
     <ion-item ng-if="topic.replies.length == 0">
@@ -39,6 +39,10 @@
       <div class="reply-content" ng-bind-html="reply.content | link"></div>
     </ion-item>
   </ion-list>
+  <br />
+  <br />
+  <br />
+  <br />
   </ion-content>
   <ion-footer-bar align-title="left" class="bar-light reply-new" keyboard-attach>
     <label class="item-input-wrapper">
