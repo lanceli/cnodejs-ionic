@@ -25,8 +25,15 @@
     <ion-item class="item-avatar" ng-repeat="reply in topic.replies" ng-click="showActions(reply)">
       <img ng-src="{{reply.author.avatar_url}}" ng-if="!settings.saverMode">
       <p>
-        {{reply.author.loginname}}
+        <a href="#/user/{{reply.author.loginname}}" ng-class="{'bold': reply.author.loginname == topic.author.loginname}">
+          {{reply.author.loginname}}
+        </a>
         <span class="item-note" am-time-ago="reply.create_at">
+        </span>
+        <span class="item-note cnode" ng-if="reply.ups.length > 0">
+          <i class="icon ion-thumbsup"></i>
+          {{reply.ups.length}}
+          &nbsp;
         </span>
       </p>
       <div class="reply-content" ng-bind-html="reply.content | link"></div>

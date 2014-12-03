@@ -39,7 +39,19 @@ angular.module('cnodejs.services')
       return resource.upReply({
         replyId: replyId,
         accesstoken: currentUser.accesstoken
-      }, null
+      }, null, function(response) {
+        if (response.success) {
+          angular.forEach(topic.replies, function(reply, key) {
+            if (reply.id === replyId) {
+              if (response.action === 'up') {
+                reply.ups.push('');
+              } else {
+                reply.ups.pop();
+              }
+            }
+          });
+        }
+      }
       );
     }
   };
