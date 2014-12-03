@@ -23,15 +23,21 @@ angular.module('cnodejs.controllers')
   $scope.settings = Settings.getSettings();
 
   // error handler
+  var errorMsg = {
+    0: '网络出错啦，请再试一下',
+    'wrong accessToken': '授权失败'
+  };
   $rootScope.requestErrorHandler = function(options, callback) {
     return function(response) {
-      var error = response.status + ' ' + response.statusText;
+      var error;
       if (response.data && response.data.error_msg) {
-        error = response.data.error_msg;
+        error = errorMsg[response.data.error_msg];
+      } else {
+        error = errorMsg[response.status] || 'Error: ' + response.status + ' ' + response.statusText;
       }
       var o = options || {};
       angular.extend(o, {
-        template: 'Error: ' + error,
+        template: error,
         duration: 1000
       });
       $ionicLoading.show(o);
