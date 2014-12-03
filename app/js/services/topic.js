@@ -9,7 +9,8 @@
  */
 
 angular.module('cnodejs.services')
-.factory('Topic', function(ENV, $resource, $log, User) {
+.factory('Topic', function(ENV, $resource, $log, $q, User) {
+  var topic;
   var resource =  $resource(ENV.api + '/topic/:id', {
     id: '@id',
   }, {
@@ -24,7 +25,18 @@ angular.module('cnodejs.services')
   });
   return {
     getById: function(id) {
-      return resource.get({id: id});
+      if (topic !== undefined && topic.id === id) {
+        var topicDefer = $q.defer();
+        topicDefer.resolve({
+          data: topic
+        });
+        return {
+          $promise: topicDefer.promise
+        };
+      }
+      return resource.get({id: id}, function(response) {
+        topic = response.data;
+      });
     },
     saveReply: function(topicId, replyData) {
       var currentUser = User.getCurrentUser();
