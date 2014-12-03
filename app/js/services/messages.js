@@ -12,9 +12,7 @@ angular.module('cnodejs.services')
 .factory('Messages', function(ENV, $resource, $log, User) {
   var messages = {};
   var messagesCount = 0;
-  var resource =  $resource(ENV.api + '/messages', {
-    accesstoken: ''
-  }, {
+  var resource =  $resource(ENV.api + '/messages', null, {
     count: {
       method: 'get',
       url: ENV.api + '/message/count'

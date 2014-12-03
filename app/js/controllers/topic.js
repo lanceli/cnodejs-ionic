@@ -39,7 +39,7 @@ angular.module('cnodejs.controllers')
       $ionicLoading.hide();
       $log.debug('post reply response:', response);
       $scope.loadTopic().then(function() {
-        $ionicScrollDelegate.scrollBottom();;
+        $ionicScrollDelegate.scrollBottom();
       });
     }, $rootScope.requestErrorHandler);
   };

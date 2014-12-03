@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('cnodejs.directives').directive(
   // Collection-repeat image recycling while loading
   // https://github.com/driftyco/ionic/issues/1742
@@ -21,6 +23,6 @@ angular.module('cnodejs.directives').directive(
         $attributes.$observe('src', applyNewSrc);
         $attributes.$observe('ngSrc', applyNewSrc);
       }
-    }
+    };
   }
 );

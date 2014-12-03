@@ -11,9 +11,7 @@
 angular.module('cnodejs.services')
 .factory('User', function(ENV, $resource, $log, $q, Storage) {
   var storageKey = 'user';
-  var resource = $resource(ENV.api + '/accesstoken', {
-    accesstoken: ''
-  });
+  var resource = $resource(ENV.api + '/accesstoken');
   var userResource = $resource(ENV.api + '/user/:loginname', {
     loginname: ''
   });
@@ -23,7 +21,7 @@ angular.module('cnodejs.services')
       var $this = this;
       return resource.save({
         accesstoken: accesstoken
-      }, function(response) {
+      }, null, function(response) {
         $log.debug('post accesstoken:', response);
         user.accesstoken = accesstoken;
         $this.getUserInfo(response.loginname).$promise.then(function(r) {

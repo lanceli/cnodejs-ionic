@@ -26,7 +26,7 @@ angular.module('cnodejs.filters')
 .filter('tabName', function(Tabs) {
   return function(tab) {
     for (var i in Tabs) {
-      if (Tabs[i].value == tab) {
+      if (Tabs[i].value === tab) {
         return Tabs[i].label;
       }
     }

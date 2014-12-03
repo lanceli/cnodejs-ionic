@@ -36,7 +36,7 @@ angular.module('cnodejs.controllers')
 
 
   // save settings on destroy
-  $scope.$on("$destroy", function(){
+  $scope.$on('$destroy', function(){
     $log.debug('settings controller on destroy');
     Settings.save();
   });

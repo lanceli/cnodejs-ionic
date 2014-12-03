@@ -24,7 +24,6 @@
       <ion-item ng-repeat="topic in user.recent_topics" href="#/topic/{{topic.id}}">
         <h2>{{topic.title}}</h2>
         <p>
-          <span>{{topic.tab|tabName}}</span>
           {{topic.author.loginname}}
           <span class="item-note" am-time-ago="topic.last_reply_at">
           </span>
@@ -37,7 +36,6 @@
         <img ng-src="{{topic.author.avatar_url}}" ng-if="!settings.saverMode">
         <h2>{{topic.title}}</h2>
         <p>
-          <span>{{topic.tab|tabName}}</span>
           {{topic.author.loginname}}
           <span class="item-note" am-time-ago="topic.last_reply_at">
           </span>
