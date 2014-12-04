@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('AppCtrl', function(ENV, $scope, $log, $timeout, $rootScope, $ionicModal, $ionicLoading, Tabs, User, Messages, Settings) {
+.controller('AppCtrl', function(ENV, $scope, $log, $timeout, $rootScope, $ionicPopup, $ionicLoading, Tabs, User, Messages, Settings) {
   $log.log('app ctrl');
 
   // environment config
@@ -90,7 +90,7 @@ angular.module('cnodejs.controllers')
       $scope.messagesCount = response.data;
       setBadge($scope.messagesCount);
     }, function(response) {
-      navigator.notification.alert(response.data.error_msg);
+      $log.log('get messages count fail', response);
     });
   };
 
@@ -159,11 +159,34 @@ angular.module('cnodejs.controllers')
         window.analytics.trackEvent('User', 'scan login');
       }
     } else {
-      if (ENV.debug) {
+      // auto login if in debug mode
+      if (!ENV.debug) {
         $ionicLoading.show();
         User.login(ENV.accessToken).$promise.then(loginCallback, $rootScope.requestErrorHandler());
       } else {
-        $log.log('pls do this in device');
+        $scope.data = {};
+        // show login popup if no barcodeScanner in pc browser
+        var loginPopup = $ionicPopup.show({
+          template: '<input type="text" ng-model="data.token">',
+          title: '输入Access Token',
+          scope: $scope,
+          buttons: [
+            { text: '取消' },
+            {
+              text: '<b>提交</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                e.preventDefault();
+                if ($scope.data.token) {
+                  User.login($scope.data.token).$promise.then(function(response) {
+                    loginPopup.close();
+                    loginCallback(response);
+                  }, $rootScope.requestErrorHandler());
+                }
+              }
+            }
+          ]
+        });
       }
     }
   };
