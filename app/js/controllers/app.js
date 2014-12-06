@@ -45,6 +45,7 @@ angular.module('cnodejs.controllers')
     };
   };
 
+  // set badge of app icon
   var setBadge = function(num) {
     // Promot permission request to show badge notifications
     if (window.cordova && window.cordova.plugins.notification.badge) {
@@ -57,15 +58,20 @@ angular.module('cnodejs.controllers')
     }
   };
 
-  // app resume event
-  document.addEventListener('resume', function onResume() {
-    $log.log('app on resume');
-    Messages.getMessageCount(function(response) {
+  // get message count
+  var getMessageCount = function() {
+    Messages.getMessageCount().$promise.then(function(response) {
       $scope.messagesCount = response.data;
       setBadge($scope.messagesCount);
     }, function(response) {
-      navigator.notification.alert(response.data.error_msg);
+      $log.log('get messages count fail', response);
     });
+  };
+
+  // app resume event
+  document.addEventListener('resume', function onResume() {
+    $log.log('app on resume');
+    getMessageCount();
   }, false);
 
   // logout
@@ -86,12 +92,7 @@ angular.module('cnodejs.controllers')
   var loginCallback = function(response) {
     $ionicLoading.hide();
     $scope.loginName = response.loginname;
-    Messages.getMessageCount().$promise.then(function(response) {
-      $scope.messagesCount = response.data;
-      setBadge($scope.messagesCount);
-    }, function(response) {
-      $log.log('get messages count fail', response);
-    });
+    getMessageCount();
   };
 
   // on hold login action
@@ -160,7 +161,7 @@ angular.module('cnodejs.controllers')
       }
     } else {
       // auto login if in debug mode
-      if (!ENV.debug) {
+      if (ENV.debug) {
         $ionicLoading.show();
         User.login(ENV.accessToken).$promise.then(loginCallback, $rootScope.requestErrorHandler());
       } else {
