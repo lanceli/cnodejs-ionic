@@ -12,12 +12,25 @@ angular.module('cnodejs.controllers')
 .controller('AppCtrl', function(ENV, $scope, $log, $timeout, $rootScope, $ionicPopup, $ionicLoading, Tabs, User, Messages, Settings) {
   $log.log('app ctrl');
 
+  // get message count
+  var getMessageCount = function() {
+    Messages.getMessageCount().$promise.then(function(response) {
+      $scope.messagesCount = response.data;
+      setBadge($scope.messagesCount);
+    }, function(response) {
+      $log.log('get messages count fail', response);
+    });
+  };
+
   // environment config
   $scope.ENV = ENV;
 
   // get current user
   var currentUser = User.getCurrentUser();
   $scope.loginName = currentUser.loginname || null;
+  if ($scope.loginName !== null) {
+    getMessageCount();
+  }
 
   // get user settings
   $scope.settings = Settings.getSettings();
@@ -56,16 +69,6 @@ angular.module('cnodejs.controllers')
         }
       });
     }
-  };
-
-  // get message count
-  var getMessageCount = function() {
-    Messages.getMessageCount().$promise.then(function(response) {
-      $scope.messagesCount = response.data;
-      setBadge($scope.messagesCount);
-    }, function(response) {
-      $log.log('get messages count fail', response);
-    });
   };
 
   // app resume event

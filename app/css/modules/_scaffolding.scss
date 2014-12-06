@@ -4,6 +4,15 @@
   color: #aaa;
   text-shadow: 0 1px 0 #fff;
 }
+.notifyBadge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #EF4E3A;
+  border-radius: 10px;
+  width: 10px;
+  height: 10px;
+}
 
 .bold {
   font-weight: bold;
