@@ -20,17 +20,33 @@ angular.module('cnodejs.controllers')
     window.analytics.trackView('topic view');
   }
 
-  $scope.loadTopic = function() {
-    return Topic.getById(id).$promise.then(function(response) {
-      $scope.topic = response.data;
-    });
+  // load topic data
+  $scope.loadTopic = function(reload) {
+    var topicResource;
+    if (reload === true) {
+      topicResource = Topic.get(id);
+    } else {
+      topicResource = Topic.getById(id);
+    }
+    return topicResource.$promise.then(function(response) {
+        $scope.topic = response.data;
+      }, $rootScope.requestErrorHandler({
+        noBackdrop: true
+      }, function() {
+        $scope.loadError = true;
+      })
+    );
   };
   $scope.loadTopic();
 
-  $scope.reloadTopic = function() {
-    return Topic.get(id).$promise.then(function(response) {
-      $scope.topic = response.data;
-    });
+  // do refresh
+  $scope.doRefresh = function() {
+    return $scope.loadTopic(true).then(function(response) {
+        $log.debug('do refresh complete');
+        $scope.$broadcast('scroll.refreshComplete');
+      }, function() {
+        $scope.$broadcast('scroll.refreshComplete');
+      });
   };
 
   $scope.replyData  = {
@@ -44,7 +60,7 @@ angular.module('cnodejs.controllers')
     Topic.saveReply(id, $scope.replyData).$promise.then(function(response) {
       $ionicLoading.hide();
       $log.debug('post reply response:', response);
-      $scope.reloadTopic().then(function() {
+      $scope.loadTopic(true).then(function() {
         $ionicScrollDelegate.scrollBottom();
       });
     }, $rootScope.requestErrorHandler);

@@ -15,9 +15,16 @@
       </div>
     </div>
   </div>
+  <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()" refreshing-icon="ion-loading-c">
+  </ion-refresher>
   <ion-list class="replies">
     <ion-item class="item-loading" ng-if="topic.replies == undefined">
-      加载中...
+      <span ng-if="!loadError">
+        加载中...
+      </span>
+      <span ng-if="loadError">
+        加载失败
+      </span>
     </ion-item>
     <ion-item ng-if="topic.replies.length == 0">
       暂无评论
