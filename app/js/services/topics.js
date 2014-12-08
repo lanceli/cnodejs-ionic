@@ -24,7 +24,7 @@ angular.module('cnodejs.services')
         limit: 10,
         mdrender: true
       },
-      timeout: 8000
+      timeout: 20000
     }
   });
   var getTopics = function(tab, page, callback) {
