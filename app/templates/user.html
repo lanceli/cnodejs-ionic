@@ -7,7 +7,7 @@
       <ion-item class="item-divider item-gap">
       </ion-item>
       <ion-item class="item-avatar">
-        <img src="{{user.avatar_url}}" ng-if="!settings.saverMode">
+        <img ng-src="{{user.avatar_url}}" ng-if="!settings.saverMode">
         <span>{{user.loginname}}</span>
         <span>{{user.score}}积分</span>
         <p>

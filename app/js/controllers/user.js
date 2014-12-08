@@ -18,9 +18,17 @@ angular.module('cnodejs.controllers')
     window.analytics.trackView('user view');
   }
 
-  User.getUserInfo(loginName).$promise.then(function(response) {
+  User.getByLoginName(loginName).$promise.then(function(response) {
     $scope.user = response.data;
   });
+
+  // reload user info from server if is current user view
+  var currentUser = User.getCurrentUser();
+  if (loginName === currentUser.loginname) {
+    User.get(loginName).$promise.then(function(response) {
+      $scope.user = response.data;
+    });
+  }
 
   // logout action
   $scope.logout = function() {

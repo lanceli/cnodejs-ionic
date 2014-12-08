@@ -24,7 +24,7 @@ angular.module('cnodejs.services')
       }, null, function(response) {
         $log.debug('post accesstoken:', response);
         user.accesstoken = accesstoken;
-        $this.getUserInfo(response.loginname).$promise.then(function(r) {
+        $this.getByLoginName(response.loginname).$promise.then(function(r) {
           user = r.data;
           user.accesstoken = accesstoken;
           Storage.set(storageKey, user);
@@ -40,7 +40,7 @@ angular.module('cnodejs.services')
       $log.debug('current user:', user);
       return user;
     },
-    getUserInfo: function(loginName) {
+    getByLoginName: function(loginName) {
       if (user && loginName === user.loginname) {
         var userDefer = $q.defer();
         $log.debug('get user info from storage:', user);
@@ -51,10 +51,19 @@ angular.module('cnodejs.services')
           $promise: userDefer.promise
         };
       }
+      return this.get(loginName);
+    },
+    get: function(loginName) {
       return userResource.get({
         loginname: loginName
       }, function(response) {
         $log.debug('get user info:', response);
+        if (user && user.loginname === loginName) {
+          var accesstoken = user.accesstoken;
+          user = response.data;
+          user.accesstoken = accesstoken;
+          Storage.set(storageKey, user);
+        }
       });
     }
   };
