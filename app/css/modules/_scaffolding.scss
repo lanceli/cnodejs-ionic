@@ -13,6 +13,18 @@
   width: 10px;
   height: 10px;
 }
+.badge {
+  &.messagesCount {
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    padding: 0;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+  }
+}
 
 .bold {
   font-weight: bold;

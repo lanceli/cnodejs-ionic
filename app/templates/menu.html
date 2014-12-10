@@ -20,7 +20,9 @@
         <ion-item nav-clear menu-close class="item-icon-left" ng-if="loginName" href="#/user/{{loginName}}">
           <i class="icon ion-person"></i>
           {{loginName}}
-          <span ng-if="messagesCount" class="badge badge-assertive">{{messagesCount}}</span>
+          <span ng-if="messagesCount" class="badge badge-assertive messagesCount">
+            {{messagesCount > 9 ? 'N' : messagesCount}}
+          </span>
         </ion-item>
         <ion-item class="item-divider">
           板块
