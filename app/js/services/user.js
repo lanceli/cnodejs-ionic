@@ -26,6 +26,7 @@ angular.module('cnodejs.services')
         user.accesstoken = accesstoken;
         $this.getByLoginName(response.loginname).$promise.then(function(r) {
           user = r.data;
+          user.id = response.id;
           user.accesstoken = accesstoken;
           Storage.set(storageKey, user);
         });

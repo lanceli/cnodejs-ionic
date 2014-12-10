@@ -73,11 +73,16 @@ angular.module('cnodejs.controllers')
       return;
     }
     $log.debug('action reply:', reply);
+    var upLabel = '赞';
+    // detect if current user already do up
+    if (reply.ups.indexOf(currentUser.id) !== -1) {
+      upLabel = '已赞';
+    }
     var replyContent = '@' + reply.author.loginname;
-    var hideSheet = $ionicActionSheet.show({
+    $ionicActionSheet.show({
       buttons: [
         {text: '回复'},
-        {text: '赞'}
+        {text: upLabel}
       ],
       titleText: replyContent,
       cancel: function() {
