@@ -1,7 +1,14 @@
 'use strict';
 
 // Ionic cnodejs App
-angular.module('cnodejs', ['ionic', 'angularMoment', 'cnodejs.controllers', 'cnodejs.filters', 'cnodejs.directives', 'cnodejs.config'])
+angular.module('cnodejs', [
+  'ionic',
+  'angularMoment',
+  'cnodejs.controllers',
+  'cnodejs.filters',
+  'cnodejs.directives',
+  'cnodejs.config']
+)
 
 .run(function($ionicPlatform, $log, $timeout, amMoment, ENV) {
 

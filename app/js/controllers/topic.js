@@ -43,13 +43,13 @@ angular.module('cnodejs.controllers')
   $scope.doRefresh = function() {
     return $scope.loadTopic(true).then(function(response) {
         $log.debug('do refresh complete');
-        $scope.$broadcast('scroll.refreshComplete');
       }, function() {
+      }).finally(function() {
         $scope.$broadcast('scroll.refreshComplete');
       });
   };
 
-  $scope.replyData  = {
+  $scope.replyData = {
     content: ''
   };
 

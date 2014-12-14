@@ -35,38 +35,38 @@ angular.module('cnodejs.controllers')
   $scope.doRefresh = function() {
     $log.debug('do refresh');
     Topics.refresh().$promise.then(function(response) {
-      $log.debug('do refresh complete');
-      $scope.topics = response.data;
-      $scope.hasNextPage = true;
-      $scope.loadError = false;
+        $log.debug('do refresh complete');
+        $scope.topics = response.data;
+        $scope.hasNextPage = true;
+        $scope.loadError = false;
+      }, $rootScope.requestErrorHandler({
+        noBackdrop: true
+      }, function() {
+        $scope.loadError = true;
+      })
+    ).finally(function() {
       $scope.$broadcast('scroll.refreshComplete');
-    }, $rootScope.requestErrorHandler({
-      noBackdrop: true
-    }, function() {
-      $scope.loadError = true;
-      $scope.$broadcast('scroll.refreshComplete');
-    })
-    );
+    });
   };
   $scope.loadMore = function() {
     $log.debug('load more');
     Topics.pagination().$promise.then(function(response) {
-      $log.debug('load more complete');
-      $scope.hasNextPage = false;
-      $scope.loadError = false;
-      $timeout(function() {
-        $scope.hasNextPage = Topics.hasNextPage();
-        $log.debug('has next page ? ', $scope.hasNextPage);
-      }, 100);
-      $scope.topics = $scope.topics.concat(response.data);
+        $log.debug('load more complete');
+        $scope.hasNextPage = false;
+        $scope.loadError = false;
+        $timeout(function() {
+          $scope.hasNextPage = Topics.hasNextPage();
+          $log.debug('has next page ? ', $scope.hasNextPage);
+        }, 100);
+        $scope.topics = $scope.topics.concat(response.data);
+      }, $rootScope.requestErrorHandler({
+        noBackdrop: true
+      }, function() {
+        $scope.loadError = true;
+      })
+    ).finally(function() {
       $scope.$broadcast('scroll.infiniteScrollComplete');
-    }, $rootScope.requestErrorHandler({
-      noBackdrop: true
-    }, function() {
-      $scope.loadError = true;
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    })
-    );
+    });
   };
 
   // Create the new topic modal that we will use later
