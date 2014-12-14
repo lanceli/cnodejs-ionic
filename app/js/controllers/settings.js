@@ -34,10 +34,9 @@ angular.module('cnodejs.controllers')
     }
   };
 
-
   // save settings on destroy
-  $scope.$on('$destroy', function(){
-    $log.debug('settings controller on destroy');
+  $scope.$on('$stateChangeStart', function(){
+    $log.debug('settings controller on $stateChangeStart');
     Settings.save();
   });
 });
