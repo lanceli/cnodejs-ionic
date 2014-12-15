@@ -21,9 +21,19 @@
     &.item-complex {
       padding-left: 0;
     }
+    > img {
+      &:first-child {
+        -webkit-transform: translate3d(-2000px, -2000px, 0px);
+      }
+    }
     .item-content {
       padding-left: 14px;
       padding-right: 16px;
+      > img {
+        &:first-child {
+          -webkit-transform: translate3d(-2000px, -2000px, 0px);
+        }
+      }
     }
   }
 }

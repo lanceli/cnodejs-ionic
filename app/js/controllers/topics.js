@@ -33,6 +33,7 @@ angular.module('cnodejs.controllers')
   $scope.loadError = false;
   $log.debug('page load, has next page ? ', $scope.hasNextPage);
   $scope.doRefresh = function() {
+    Topics.currentTab($stateParams.tab);
     $log.debug('do refresh');
     Topics.refresh().$promise.then(function(response) {
         $log.debug('do refresh complete');

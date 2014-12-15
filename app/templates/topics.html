@@ -1,9 +1,4 @@
 <ion-view title="{{currentTab|tabName}}">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon">
-      <i class="notifyBadge" ng-if="messagesCount"></i>
-    </button>
-  </ion-nav-buttons>
   <ion-nav-buttons side="right">
     <button class="button button-icon icon ion-compose" ng-click="showNewTopicModal()" ng-disabled="loginName == null"></button>
   </ion-nav-buttons>
@@ -15,7 +10,7 @@
       <ion-item class="item-avatar"
         collection-repeat="topic in topics"
         collection-item-width="'100%'"
-        collection-item-height="75"
+        collection-item-height="73"
         href="#/topic/{{topic.id}}">
         <img ng-src="{{topic.author.avatar_url}}" ng-if="!settings.saverMode" reset-img>
         <h2>{{topic.title}}</h2>
