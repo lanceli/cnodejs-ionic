@@ -38,7 +38,6 @@ $ ionic run ios
 $ grunt build:android
 $ ionic run android
 ```
-```
 
 Need more detail? Please chekout [Ionic Framework](http://ionicframework.com) and [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
 
