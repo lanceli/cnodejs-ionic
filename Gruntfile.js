@@ -5,6 +5,7 @@ var _ = require('lodash');
 var path = require('path');
 var cordovaCli = require('cordova');
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 
 module.exports = function (grunt) {
 
@@ -533,6 +534,20 @@ module.exports = function (grunt) {
   });
   grunt.registerTask('build', function() {
     return grunt.task.run(['compress', 'ionic:build:' + this.args.join()]);
+  });
+
+  // Bumping bundle version
+  grunt.registerTask('bumpingBundleVersion', function() {
+    var done = this.async();
+    exec('git rev-list HEAD | wc -l | awk \'{print $1}\'', function(error, stdout, stderr) {
+      if (error === null) {
+        var config = grunt.file.read('config.xml');
+        config = config.replace(/CFBundleVersion="(\S+)"/gi, 'CFBundleVersion="' + stdout.trim() + '"')
+                       .replace(/versionCode="(\S+)"/gi, 'versionCode="' + stdout.trim() + '"');
+        grunt.file.write('config.xml', config);
+        done();
+      }
+    });
   });
 
   grunt.registerTask('init', [
