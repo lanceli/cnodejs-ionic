@@ -15,10 +15,13 @@ angular.module('cnodejs.controllers')
   var topic = Topics.getById(id);
   $scope.topic = topic;
 
-  // track view
-  if (window.analytics) {
-    window.analytics.trackView('topic view');
-  }
+  // before enter view event
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // track view
+    if (window.analytics) {
+      window.analytics.trackView('topic view');
+    }
+  });
 
   // load topic data
   $scope.loadTopic = function(reload) {

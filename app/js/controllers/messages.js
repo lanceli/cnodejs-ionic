@@ -12,10 +12,13 @@ angular.module('cnodejs.controllers')
 .controller('MessagesCtrl', function($scope, $log, $stateParams, $rootScope, Messages) {
   $log.log('messages ctrl');
 
-  // track view
-  if (window.analytics) {
-    window.analytics.trackView('messages view');
-  }
+  // before enter view event
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // track view
+    if (window.analytics) {
+      window.analytics.trackView('messages view');
+    }
+  });
 
   Messages.getMessages().$promise.then(function(response) {
     $scope.messages = response.data;

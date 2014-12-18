@@ -12,10 +12,13 @@ angular.module('cnodejs.controllers')
 .controller('TopicsCtrl', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicModal, $timeout, $state, $location, $log, Topics, Tabs) {
   $log.debug('topics ctrl', $stateParams);
 
-  // track view
-  if (window.analytics) {
-    window.analytics.trackView('topics view');
-  }
+  // before enter view event
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // track view
+    if (window.analytics) {
+      window.analytics.trackView('topics view');
+    }
+  });
 
   $scope.currentTab = Topics.currentTab();
 

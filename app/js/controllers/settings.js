@@ -12,10 +12,13 @@ angular.module('cnodejs.controllers')
 .controller('SettingsCtrl', function($scope, $log, ENV, Settings) {
   $log.log('settings ctrl');
 
-  // track view
-  if (window.analytics) {
-    window.analytics.trackView('settings view');
-  }
+  // before enter view event
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // track view
+    if (window.analytics) {
+      window.analytics.trackView('settings view');
+    }
+  });
 
   $scope.now = new Date();
 

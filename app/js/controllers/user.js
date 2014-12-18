@@ -13,10 +13,13 @@ angular.module('cnodejs.controllers')
   $log.log('user ctrl');
   var loginName = $stateParams.loginname;
 
-  // track view
-  if (window.analytics) {
-    window.analytics.trackView('user view');
-  }
+  // before enter view event
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // track view
+    if (window.analytics) {
+      window.analytics.trackView('user view');
+    }
+  });
 
   User.getByLoginName(loginName).$promise.then(function(response) {
     $scope.user = response.data;
