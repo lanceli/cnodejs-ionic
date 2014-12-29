@@ -33,4 +33,14 @@ angular.module('cnodejs.filters')
       }
     }
   };
+})
+.filter('protocol', function() {
+  return function(src) {
+    // add https protocol
+    if (/^\/\//gi.test(src)) {
+      return 'https:' + src;
+    } else {
+      return src;
+    }
+  };
 });

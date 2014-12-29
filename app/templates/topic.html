@@ -8,7 +8,7 @@
         <div class="summary">
           <strong>
             <a href="#/user/{{topic.author.loginname}}">
-              <img ng-src="{{topic.author.avatar_url}}" class="avatar">
+              <img ng-src="{{topic.author.avatar_url | protocol}}" class="avatar">
               {{topic.author.loginname}}</a>
           </strong>
           <span class="item-note" am-time-ago="topic.last_reply_at"></span>
@@ -30,7 +30,7 @@
         暂无评论
       </ion-item>
       <ion-item class="item-avatar" ng-repeat="reply in topic.replies" ng-click="showActions(reply)">
-        <img ng-src="{{reply.author.avatar_url}}" ng-if="!settings.saverMode">
+        <img ng-src="{{reply.author.avatar_url | protocol}}" ng-if="!settings.saverMode">
         <p>
           <a href="#/user/{{reply.author.loginname}}" ng-class="{'bold': reply.author.loginname == topic.author.loginname}">
             {{reply.author.loginname}}

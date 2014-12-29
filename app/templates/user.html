@@ -7,7 +7,7 @@
       <ion-item class="item-divider item-gap">
       </ion-item>
       <ion-item class="item-avatar">
-        <img ng-src="{{user.avatar_url}}" ng-if="!settings.saverMode">
+        <img ng-src="{{user.avatar_url | protocol}}" ng-if="!settings.saverMode">
         <span>{{user.loginname}}</span>
         <span>{{user.score}}积分</span>
         <p>
@@ -35,7 +35,7 @@
         最近回复
       </ion-item>
       <ion-item class="item-avatar" ng-repeat="topic in user.recent_replies" href="#/topic/{{topic.id}}">
-        <img ng-src="{{topic.author.avatar_url}}" ng-if="!settings.saverMode">
+        <img ng-src="{{topic.author.avatar_url | protocol}}" ng-if="!settings.saverMode">
         <h2>{{topic.title}}</h2>
         <p>
           {{topic.author.loginname}}

@@ -10,11 +10,6 @@ angular.module('cnodejs.directives').directive(
         var applyNewSrc = function (src) {
           var newImg = $element.clone(true);
 
-          // add https protocol
-          if (/^\/\//gi.test(src)) {
-            src = 'https:' + src;
-          }
-
           newImg.attr('src', src);
           $element.replaceWith(newImg);
           $element = newImg;
