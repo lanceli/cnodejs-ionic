@@ -28,6 +28,7 @@ git add --all
 git commit -m "Content creation"
 
 # Push quietly so the token isn't seen in the CI output
-#git push -fq origin gh-pages
-#cd ..
-#rm -rf _demo
+git push -fq origin gh-pages
+git push -fq coding gh-pages
+cd ..
+rm -rf _demo
