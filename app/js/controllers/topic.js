@@ -62,6 +62,7 @@ angular.module('cnodejs.controllers')
     $ionicLoading.show();
     Topic.saveReply(id, $scope.replyData).$promise.then(function(response) {
       $ionicLoading.hide();
+      $scope.replyData.content = '';
       $log.debug('post reply response:', response);
       $scope.loadTopic(true).then(function() {
         $ionicScrollDelegate.scrollBottom();
