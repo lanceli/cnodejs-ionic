@@ -1,6 +1,12 @@
 .topics {
   .item-content {
     padding: 14px 16px 18px 72px;
+    > img {
+      &:not(:first-child) {
+        -webkit-transform: translate3d(-2000px, -2000px, 0px);
+        position: absolute;
+      }
+    }
   }
   .ago,
   .summary {
