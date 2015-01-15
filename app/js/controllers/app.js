@@ -25,6 +25,9 @@ angular.module('cnodejs.controllers')
   // environment config
   $scope.ENV = ENV;
 
+  // ionic platform
+  $scope.platform = ionic.Platform;
+
   // get current user
   var currentUser = User.getCurrentUser();
   $scope.loginName = currentUser.loginname || null;
