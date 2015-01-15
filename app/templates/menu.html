@@ -11,7 +11,7 @@
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
-  <ion-side-menu side="left">
+  <ion-side-menu side="left" expose-aside-when="(min-width:736px)">
     <ion-header-bar class="bar-dark">
       <img id="logo" src="img/cnodejs_light.svg">
       <h1 ng-if="ENV.name != 'production'" class="title" id="devTag">dev</h1>
