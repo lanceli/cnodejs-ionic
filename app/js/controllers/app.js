@@ -138,33 +138,22 @@ angular.module('cnodejs.controllers')
       return;
     }
     if(window.cordova && window.cordova.plugins.barcodeScanner) {
-      $scope.processing = true;
-      $timeout(function() {
-        $scope.processing = false;
-      }, 500);
-      cordova.plugins.barcodeScanner.scan(
-        function (result) {
-          $scope.processing = false;
-          if (!result.cancelled) {
-            $log.log('get Access Token', result.text);
-            $ionicLoading.show();
-            User.login(result.text).$promise.then(loginCallback, $rootScope.requestErrorHandler());
+      var loginPrompt = $ionicPopup.show({
+        template: 'PC端登录cnodejs.org后，扫描设置页面的Access Token二维码即可完成登录',
+        title: '扫码登录',
+        scope: $scope,
+        buttons: [
+          {
+            text: '<b>我知道了</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              e.preventDefault();
+              loginPrompt.close();
+              dologin();
+            }
           }
-        },
-        function (error) {
-          $scope.processing = false;
-          $ionicLoading.show({
-            noBackdrop: true,
-            template: 'Scanning failed: ' + error,
-            duration: 1000
-          });
-        }
-      );
-
-      // track event
-      if (window.analytics) {
-        window.analytics.trackEvent('User', 'scan login');
-      }
+        ]
+      });
     } else {
       // auto login if in debug mode
       if (ENV.debug) {
@@ -195,6 +184,35 @@ angular.module('cnodejs.controllers')
           ]
         });
       }
+    }
+  };
+  var dologin = function() {
+    $scope.processing = true;
+    $timeout(function() {
+      $scope.processing = false;
+    }, 500);
+    cordova.plugins.barcodeScanner.scan(
+      function (result) {
+        $scope.processing = false;
+        if (!result.cancelled) {
+          $log.log('get Access Token', result.text);
+          $ionicLoading.show();
+          User.login(result.text).$promise.then(loginCallback, $rootScope.requestErrorHandler());
+        }
+      },
+      function (error) {
+        $scope.processing = false;
+        $ionicLoading.show({
+          noBackdrop: true,
+          template: 'Scanning failed: ' + error,
+          duration: 1000
+        });
+      }
+    );
+
+    // track event
+    if (window.analytics) {
+      window.analytics.trackEvent('User', 'scan login');
     }
   };
 });
