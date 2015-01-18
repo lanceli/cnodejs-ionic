@@ -41,6 +41,21 @@ $ ionic run android
 
 Need more detail? Please chekout [Ionic Framework](http://ionicframework.com) and [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
 
+### Cross-Origin
+When you run it locally in browser, CORS is a problem.
+
+**Close web security of chrome**
+
+```
+open -a /Applications/Google\ Chrome.app --args --disable-web-security --allow-file-access-from-files
+``` 
+OR **Allow cross origin access in nginx**
+
+```
+add_header Access-Control-Allow-Origin *;
+```
+Checkout this: [How do I add Access-Control-Allow-Origin in NGINX?](http://serverfault.com/questions/162429/how-do-i-add-access-control-allow-origin-in-nginx/)
+
 ## Release History
 See the [CHANGELOG](CHANGELOG.md).
 
