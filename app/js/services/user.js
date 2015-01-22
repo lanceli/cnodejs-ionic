@@ -61,8 +61,10 @@ angular.module('cnodejs.services')
         $log.debug('get user info:', response);
         if (user && user.loginname === loginName) {
           var accesstoken = user.accesstoken;
+          var id = user.id;
           user = response.data;
           user.accesstoken = accesstoken;
+          user.id = id;
           Storage.set(storageKey, user);
         }
       });

@@ -64,7 +64,7 @@ angular.module('cnodejs.services')
           angular.forEach(topic.replies, function(reply, key) {
             if (reply.id === replyId) {
               if (response.action === 'up') {
-                reply.ups.push('');
+                reply.ups.push(currentUser.id);
               } else {
                 reply.ups.pop();
               }
