@@ -14,12 +14,6 @@
         注册于：{{user.create_at | amDateFormat:'YYYY-MM-DD hh:mm:ss'}}
         </p>
       </ion-item>
-      <ion-item ng-if="user.loginname == loginName" href="#/my/messages">
-        我的消息
-        <span ng-if="messagesCount" class="badge badge-assertive messagesCount">
-          {{messagesCount > 9 ? 'N' : messagesCount}}
-        </span>
-      </ion-item>
       <ion-item class="item-divider">
         最近主题
       </ion-item>

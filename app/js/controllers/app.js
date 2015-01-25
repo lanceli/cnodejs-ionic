@@ -13,7 +13,7 @@ angular.module('cnodejs.controllers')
   $log.log('app ctrl');
 
   // get message count
-  var getMessageCount = function() {
+  $rootScope.getMessageCount = function() {
     Messages.getMessageCount().$promise.then(function(response) {
       $scope.messagesCount = response.data;
       setBadge($scope.messagesCount);
@@ -32,7 +32,7 @@ angular.module('cnodejs.controllers')
   var currentUser = User.getCurrentUser();
   $scope.loginName = currentUser.loginname || null;
   if ($scope.loginName !== null) {
-    getMessageCount();
+    $rootScope.getMessageCount();
   }
 
   // get user settings
@@ -68,6 +68,7 @@ angular.module('cnodejs.controllers')
       cordova.plugins.notification.badge.hasPermission(function (granted) {
         $log.debug('Permission has been granted: ' + granted);
         if (granted) {
+          $log.debug('set badge as', num);
           cordova.plugins.notification.badge.set(num);
         }
       });
@@ -77,28 +78,38 @@ angular.module('cnodejs.controllers')
   // app resume event
   document.addEventListener('resume', function onResume() {
     $log.log('app on resume');
-    getMessageCount();
+    $rootScope.getMessageCount();
   }, false);
 
   // logout
   $rootScope.$on('logout', function() {
     $log.debug('logout broadcast handle');
     $scope.loginName = null;
+    $scope.messagesCount = 0;
     setBadge(0);
   });
 
   // update unread messages count
   $rootScope.$on('messagesMarkedAsRead', function() {
     $log.debug('message marked as read broadcast handle');
-    $scope.messagesCount = Messages.currentMessageCount();
+    $scope.messagesCount = 0;
     setBadge($scope.messagesCount);
+    // reset badge
+    if (window.plugins && window.plugins.jPushPlugin) {
+      plugins.jPushPlugin.setBadge($scope.messagesCount);
+    }
   });
 
   // login action callback
   var loginCallback = function(response) {
     $ionicLoading.hide();
     $scope.loginName = response.loginname;
-    getMessageCount();
+    $rootScope.getMessageCount();
+
+    // set alias for jpush
+    if (window.plugins && window.plugins.jPushPlugin) {
+      plugins.jPushPlugin.setAlias(response.id);
+    }
   };
 
   // on hold login action

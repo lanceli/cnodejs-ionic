@@ -18,21 +18,29 @@ angular.module('cnodejs.controllers')
     if (window.analytics) {
       window.analytics.trackView('messages view');
     }
+
+    // load messages
+    loadMessages();
   });
 
-  Messages.getMessages().$promise.then(function(response) {
-    $scope.messages = response.data;
-    if ($scope.messages.hasnot_read_messages.length > 0) {
-      Messages.markAll().$promise.then(function(response) {
-        $log.debug('mark all response:', response);
-        if (response.success) {
-          $rootScope.$broadcast('messagesMarkedAsRead');
-        }
-      }, function(response) {
-        $log.debug('mark all response error:', response);
-      });
-    }
-  }, function(response) {
-    $log.debug('get messages response error:', response);
-  });
+  var loadMessages = function() {
+    Messages.getMessages().$promise.then(function(response) {
+      $scope.messages = response.data;
+      if ($scope.messages.hasnot_read_messages.length === 0) {
+        $rootScope.$broadcast('messagesMarkedAsRead');
+      } else {
+        Messages.markAll().$promise.then(function(response) {
+          $log.debug('mark all response:', response);
+          if (response.success) {
+            $rootScope.$broadcast('messagesMarkedAsRead');
+          }
+        }, function(response) {
+          $log.debug('mark all response error:', response);
+        });
+      }
+    }, function(response) {
+      $log.debug('get messages response error:', response);
+    });
+  };
+  loadMessages();
 });

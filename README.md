@@ -44,7 +44,7 @@ Need more detail? Please chekout [Ionic Framework](http://ionicframework.com) an
 ### Cross-Origin
 When you run it locally in browser, CORS is a problem.
 
-**Close web security of chrome**
+**Disable web security of chrome**
 
 ```
 open -a /Applications/Google\ Chrome.app --args --disable-web-security --allow-file-access-from-files

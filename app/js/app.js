@@ -10,7 +10,7 @@ angular.module('cnodejs', [
   'cnodejs.config']
 )
 
-.run(function($ionicPlatform, $log, $timeout, amMoment, ENV) {
+.run(function($ionicPlatform, $log, $timeout, $state, $rootScope, amMoment, ENV) {
 
   // set moment locale
   amMoment.changeLocale('zh-cn');
@@ -24,6 +24,30 @@ angular.module('cnodejs', [
     };
   }
 
+  // push notification callback
+  var notificationCallback = function(data, isActive) {
+    $log.debug(data);
+    var notif = angular.fromJson(data);
+    if (notif.extras) {
+      // android
+      if (notif.extras['cn.jpush.android.EXTRA']['topicId']) {
+        $state.go('app.topic', {
+          id: notif.extras['cn.jpush.android.EXTRA']['topicId']
+        });
+      }
+    } else {
+      // ios
+      if (notif.topicId) {
+        if (isActive) {
+          $rootScope.getMessageCount();
+        } else {
+          $state.go('app.topic', {
+            id: notif.topicId
+          });
+        }
+      }
+    }
+  };
   $ionicPlatform.ready(function() {
     if(window.cordova) {
 
@@ -38,24 +62,30 @@ angular.module('cnodejs', [
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
       }
+    }
 
-      // Promot permission request to show badge notifications
-      if (window.cordova.plugins.notification.badge) {
-        $timeout(function() {
-          cordova.plugins.notification.badge.promptForPermission();
-        }, 100);
-      }
+    // push handler
+    if (window.plugins && window.plugins.jPushPlugin) {
+      plugins.jPushPlugin.init();
+      plugins.jPushPlugin.setDebugMode(ENV.debug);
+      plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
+      plugins.jPushPlugin.receiveNotificationIniOSCallback = notificationCallback;
     }
 
     if (navigator.splashscreen) {
       $timeout(function() {
         navigator.splashscreen.hide();
+        if (window.jpush) {
+          plugins.jPushPlugin.receiveNotificationIniOSCallback(window.jpush);
+          window.jpush = null;
+        }
       }, 100);
     } else {
       $log.debug('no splash screen plugin');
     }
 
   });
+
 })
 .config(function(ENV, $stateProvider, $urlRouterProvider, $logProvider) {
 
