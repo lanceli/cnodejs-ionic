@@ -8,6 +8,14 @@
       }
     }
   }
+  .activated {
+    .tab {
+      &:not(.hl) {
+        background-color: #aeaeae;
+        color: #fff;
+      }
+    }
+  }
   .ago,
   .summary {
     font-size: 12px;
@@ -18,8 +26,7 @@
     border-radius: 2px;
     padding: 2px 4px;
   }
-  .good,
-  .top {
+  .hl {
     background-color: $node-green;
     color: #fff;
   }
