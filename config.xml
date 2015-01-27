@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.lanceli.cnodejs"
-  version="1.1.2"
-  android-versionCode="92"
-  ios-CFBundleVersion="92"
   version="1.2.0"
   android-versionCode="98"
   ios-CFBundleVersion="98"
@@ -11,7 +8,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    <name>CNodeJs</name>
+    <name display="CNode社区">CNodeJs</name>
     <description>
       Ionic app for https://cnodejs.org
     </description>
