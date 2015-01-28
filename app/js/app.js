@@ -10,7 +10,7 @@ angular.module('cnodejs', [
   'cnodejs.config']
 )
 
-.run(function($ionicPlatform, $log, $timeout, $state, $rootScope, amMoment, ENV) {
+.run(function($ionicPlatform, $log, $timeout, $state, $rootScope, amMoment, ENV, Push, User) {
 
   // set moment locale
   amMoment.changeLocale('zh-cn');
@@ -65,20 +65,21 @@ angular.module('cnodejs', [
     }
 
     // push handler
-    if (window.plugins && window.plugins.jPushPlugin) {
-      plugins.jPushPlugin.init();
-      plugins.jPushPlugin.setDebugMode(ENV.debug);
-      plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
-      plugins.jPushPlugin.receiveNotificationIniOSCallback = notificationCallback;
+    Push.init(notificationCallback);
+
+    // detect current user have not set alias of jpush
+    var currentUser = User.getCurrentUser();
+    if (currentUser.id && currentUser.push !== 1) {
+      Push.setAlias(currentUser.id);
+      User.setPush();
     }
 
     if (navigator.splashscreen) {
       $timeout(function() {
         navigator.splashscreen.hide();
-        if (window.jpush) {
-          plugins.jPushPlugin.receiveNotificationIniOSCallback(window.jpush);
-          window.jpush = null;
-        }
+
+        // check if have push after app launch
+        Push.check();
       }, 100);
     } else {
       $log.debug('no splash screen plugin');

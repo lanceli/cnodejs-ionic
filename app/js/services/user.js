@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.services')
-.factory('User', function(ENV, $resource, $log, $q, Storage) {
+.factory('User', function(ENV, $resource, $log, $q, Storage, Push) {
   var storageKey = 'user';
   var resource = $resource(ENV.api + '/accesstoken');
   var userResource = $resource(ENV.api + '/user/:loginname', {
@@ -28,6 +28,11 @@ angular.module('cnodejs.services')
           user = r.data;
           user.id = response.id;
           user.accesstoken = accesstoken;
+
+          // set alias for jpush
+          Push.setAlias(user.id);
+          user.push = 1;
+
           Storage.set(storageKey, user);
         });
         user.loginname = response.loginname;
@@ -36,6 +41,9 @@ angular.module('cnodejs.services')
     logout: function() {
       user = {};
       Storage.remove(storageKey);
+
+      // unset alias for jpush
+      Push.setAlias('');
     },
     getCurrentUser: function() {
       $log.debug('current user:', user);
@@ -60,14 +68,15 @@ angular.module('cnodejs.services')
       }, function(response) {
         $log.debug('get user info:', response);
         if (user && user.loginname === loginName) {
-          var accesstoken = user.accesstoken;
-          var id = user.id;
-          user = response.data;
-          user.accesstoken = accesstoken;
-          user.id = id;
+          angular.extend(user, response.data);
+
           Storage.set(storageKey, user);
         }
       });
+    },
+    setPush: function() {
+      user.push = 1;
+      Storage.set(storageKey, user);
     }
   };
 });

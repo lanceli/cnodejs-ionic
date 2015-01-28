@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('AppCtrl', function(ENV, $scope, $log, $timeout, $rootScope, $ionicPopup, $ionicLoading, Tabs, User, Messages, Settings) {
+.controller('AppCtrl', function(ENV, $scope, $log, $timeout, $rootScope, $ionicPopup, $ionicLoading, Tabs, User, Messages, Settings, Push) {
   $log.log('app ctrl');
 
   // get message count
@@ -78,7 +78,9 @@ angular.module('cnodejs.controllers')
   // app resume event
   document.addEventListener('resume', function onResume() {
     $log.log('app on resume');
-    $rootScope.getMessageCount();
+    if ($scope.loginName !== null) {
+      $rootScope.getMessageCount();
+    }
   }, false);
 
   // logout
@@ -95,9 +97,7 @@ angular.module('cnodejs.controllers')
     $scope.messagesCount = 0;
     setBadge($scope.messagesCount);
     // reset badge
-    if (window.plugins && window.plugins.jPushPlugin) {
-      plugins.jPushPlugin.setBadge($scope.messagesCount);
-    }
+    Push.setBadge($scope.messagesCount);
   });
 
   // login action callback
@@ -105,11 +105,6 @@ angular.module('cnodejs.controllers')
     $ionicLoading.hide();
     $scope.loginName = response.loginname;
     $rootScope.getMessageCount();
-
-    // set alias for jpush
-    if (window.plugins && window.plugins.jPushPlugin) {
-      plugins.jPushPlugin.setAlias(response.id);
-    }
   };
 
   // on hold login action
