@@ -69,9 +69,8 @@ angular.module('cnodejs', [
 
     // detect current user have not set alias of jpush
     var currentUser = User.getCurrentUser();
-    if (currentUser.id && currentUser.push !== 1) {
+    if (currentUser.id) {
       Push.setAlias(currentUser.id);
-      User.setPush();
     }
 
     if (navigator.splashscreen) {

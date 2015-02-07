@@ -31,7 +31,6 @@ angular.module('cnodejs.services')
 
           // set alias for jpush
           Push.setAlias(user.id);
-          user.push = 1;
 
           Storage.set(storageKey, user);
         });
@@ -73,10 +72,6 @@ angular.module('cnodejs.services')
           Storage.set(storageKey, user);
         }
       });
-    },
-    setPush: function() {
-      user.push = 1;
-      Storage.set(storageKey, user);
     }
   };
 });

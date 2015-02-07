@@ -24,13 +24,15 @@ angular.module('cnodejs.controllers')
 
   // mail feedback
   var feedbackMailAddr = 'hi@lanceli.com';
-  var feedbackMailSubject = 'CNodeJs Feedback v' + ENV.version;
+  var feedbackMailSubject = 'CNode社区 Feedback v' + ENV.version;
+  var device = ionic.Platform.device();
+  var feedbackMailBody = device.platform + ' ' + device.version + ' | ' + device.model;
   $scope.feedback = function() {
     if (window.cordova && window.cordova.plugins.email) {
       window.cordova.plugins.email.open({
         to:      feedbackMailAddr,
         subject: feedbackMailSubject,
-        body:    ''
+        body:    feedbackMailBody
       });
     } else {
       window.open('mailto:' + feedbackMailAddr + '?subject=' + feedbackMailSubject);

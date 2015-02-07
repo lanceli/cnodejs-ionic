@@ -171,6 +171,7 @@ angular.module('cnodejs.controllers')
         var loginPopup = $ionicPopup.show({
           template: '<input type="text" ng-model="data.token">',
           title: '输入Access Token',
+          subTitle: 'PC端登录cnodejs.org后，在设置页可以找到Access Token',
           scope: $scope,
           buttons: [
             { text: '取消' },
