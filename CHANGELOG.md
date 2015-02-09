@@ -1,3 +1,12 @@
+## v1.2.1
+* 解决android下splash screen不现实的问题
+* 修正已登陆用户注册jush的问题
+
+## v1.2.0
+* 更名为：CNode社区
+* 增加推送功能
+* 适配了iPhone 6、iPhone 6 Plus和iPad
+
 ## v1.1.2
 #### 2015-01-18
 * 增加了如何扫描登录的提示信息
