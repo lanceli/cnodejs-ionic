@@ -2,6 +2,7 @@
 
 > [https://cnodejs.org](http://cnodejs.org) hybird mobile application powered by [Ionic Framework](http://ionicframework.com) using AngularJS and Cordova. The development stage powered by [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
 
+[![Download on the app store](https://devimages.apple.com.edgekey.net/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg)](https://itunes.apple.com/cn/app/id954734793)
 
 ## Developing
 
