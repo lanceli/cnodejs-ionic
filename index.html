@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CNodeJS App</title>
+    <style type="text/css">
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        background: #1d1d1d;
+        font-family: "KarbonWeb-Light","Avenir Next","Avenir","Helvetica Neue",Arial,Verdana,sans-serif;
+      }
+      a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      a:visited {
+        color: rgba(255, 255, 255, 0.4);
+      }
+      a:hover {
+        color: #80BD01;
+      }
+      #nav {
+        padding: 42px 0 22px;
+      }
+      #nav .body {
+        height: 57px;
+        line-height: 57px;
+        width: 200px;
+        display: inline-block;
+      }
+      #cnode {
+        color: #fff;
+        font-size: 32px;
+      }
+      #title {
+        font-size: 22px;
+        font-weight: normal;
+        color: #9f9f9f;
+      }
+      #logo {
+        border-radius: 10px;
+        float: right;
+      }
+      #demo .device {
+        margin: 0 auto;
+        position: relative;
+        background: #111;
+        box-shadow: 0px 0px 0px 2px #aaa;
+        z-index: 1000;
+        padding: 100px 30px;
+        border-radius: 55px;
+        width: 320px;
+        height: 568px;
+      }
+
+      #demo .device:after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        left: 50%;
+        margin-left: -30px;
+        bottom: 20px;
+        border-radius: 100%;
+        box-sizing: border-box;
+        border: 5px solid #333;
+      }
+
+      #demo .device:before {
+        content: '';
+        width: 60px;
+        height: 10px;
+        border-radius: 10px;
+        position: absolute;
+        left: 50%;
+        margin-left: -30px;
+        background: #333;
+        top: 50px;
+      }
+
+      #demo .device-inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      #demo iframe {
+        max-width: 100%;
+      }
+      #demo {
+        padding: 0 0 20px;
+      }
+      #fullscreen {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 150px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border-radius: 5px 5px 0 0;
+        background-color: #80BD01;
+        color: #fff;
+
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+
+        -webkit-transform-origin: left bottom;
+        -moz-transform-origin: left bottom;
+        -ms-transform-origin: left bottom;
+        -o-transform-origin: left bottom;
+        transform-origin: left bottom;
+      }
+      #fullscreen:hover {
+        color: #fff;
+      }
+      footer {
+        color: rgba(255, 255, 255, 0.4);
+        padding: 30px 0 50px 0;
+        font-size: 12px;
+      }
+      footer a {
+      }
+    </style>
+  </head>
+  <body>
+    <header id="nav">
+      <div class="body">
+        <span id="cnode">CNode</span>
+        <img id="logo" src="logo.png" alt="CNodeJs" width="57" height="57" />
+      </div>
+      <h1 id="title">
+        The mobile app of
+        <a href="https://cnodejs.org">https://cnodejs.org</a>
+      </h1>
+      <p>
+      <a href="https://github.com/lanceli/cnodejs-ionic">FORK ME ON GITHUB</a>
+      </p>
+    </header>
+    <div id="demo">
+      <div class="device">
+        <iframe src="www/index.html" frameborder="0" width="320" height="568"></iframe>
+        <a href="www/index.html" id="fullscreen">FULLSCREEN</a>
+      </div>
+    </div>
+    <footer>
+      <p class="copyright">&copy; 2014 <a href="http://lanceli.com/">Lance Li</a>, 4 Lovely JJ,
+        <a href="https://raw.githubusercontent.com/lanceli/cnodejs-ionic/master/LICENSE">View license</a>.
+      </p>
+    </footer>
+  </body>
+</html>
