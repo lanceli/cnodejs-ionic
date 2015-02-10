@@ -42,5 +42,4 @@ angular.module('cnodejs.controllers')
       $log.debug('get messages response error:', response);
     });
   };
-  loadMessages();
 });

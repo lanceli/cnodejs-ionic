@@ -34,6 +34,8 @@ angular.module('cnodejs', [
         $state.go('app.topic', {
           id: notif.extras['cn.jpush.android.EXTRA']['topicId']
         });
+      } else {
+        $state.go('app.messages');
       }
     } else {
       // ios
@@ -45,6 +47,8 @@ angular.module('cnodejs', [
             id: notif.topicId
           });
         }
+      } else {
+        $state.go('app.messages');
       }
     }
   };
