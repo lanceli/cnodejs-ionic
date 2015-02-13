@@ -59,6 +59,8 @@
     "https://github.com/katzer/cordova-plugin-badge.git",
     "org.apache.cordova.dialogs",
     "https://github.com/katzer/cordova-plugin-email-composer.git",
-    "https://github.com/danwilson/google-analytics-plugin.git"
+    "https://github.com/danwilson/google-analytics-plugin.git",
+    "https://github.com/lanceli/jpush-phonegap-plugin",
+    "org.apache.cordova.device"
   ]
 }
