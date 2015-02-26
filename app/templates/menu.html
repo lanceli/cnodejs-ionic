@@ -23,11 +23,11 @@
           <i class="icon ion-looping" ng-if="processing"></i>
         </ion-item>
         <ion-item menu-close class="item-icon-left" ng-if="loginName" href="#/user/{{loginName}}">
-          <i class="icon ion-ios7-person"></i>
+          <i class="icon ion-person"></i>
           {{loginName}}
         </ion-item>
         <ion-item menu-close class="item-icon-left" href="#/my/messages" ng-if="loginName">
-          <i class="icon ion-ios7-email"></i>
+          <i class="icon ion-email"></i>
           我的消息
           <span ng-if="messagesCount" class="badge badge-assertive messagesCount">
             {{messagesCount > 9 ? 'N' : messagesCount}}
