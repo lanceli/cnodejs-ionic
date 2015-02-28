@@ -3,6 +3,8 @@
     <button ng-if="user.loginname == loginName" class="button button-clear" ng-click="logout()">退出</button>
   </ion-nav-buttons>
   <ion-content class="has-header user">
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()" refreshing-icon="ion-loading-c">
+    </ion-refresher>
     <ion-list>
       <ion-item class="item-divider item-gap">
       </ion-item>
