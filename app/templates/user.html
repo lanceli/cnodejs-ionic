@@ -15,6 +15,9 @@
         <p>
         注册于：{{user.create_at | amDateFormat:'YYYY-MM-DD hh:mm:ss'}}
         </p>
+        <p>
+        <a href="#/user/{{user.loginname}}/collections">{{user.collect_topics.length}}话题收藏</a>
+        </p>
       </ion-item>
       <ion-item class="item-divider">
         最近主题
