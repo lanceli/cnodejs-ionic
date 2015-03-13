@@ -14,6 +14,14 @@ angular.module('cnodejs.services')
   var resource =  $resource(ENV.api + '/topic/:id', {
     id: '@id',
   }, {
+    collect: {
+      method: 'post',
+      url: ENV.api + '/topic/collect'
+    },
+    deCollect: {
+      method: 'post',
+      url: ENV.api + '/topic/de_collect'
+    },
     reply: {
       method: 'post',
       url: ENV.api + '/topic/:topicId/replies'
@@ -73,6 +81,20 @@ angular.module('cnodejs.services')
         }
       }
       );
+    },
+    collectTopic: function(topicId) {
+      var currentUser = User.getCurrentUser();
+      return resource.collect({
+        topic_id: topicId,
+        accesstoken: currentUser.accesstoken
+      });
+    },
+    deCollectTopic: function(topicId) {
+      var currentUser = User.getCurrentUser();
+      return resource.deCollect({
+        topic_id: topicId,
+        accesstoken: currentUser.accesstoken
+      });
     }
   };
 });

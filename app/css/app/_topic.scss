@@ -40,3 +40,8 @@
     background: rgba(0, 0, 0, 0);
   }
 }
+.bar.bar-header {
+  .topic-collected {
+    color: $node-green;
+  }
+}
