@@ -42,6 +42,54 @@ $ ionic run android
 
 Need more detail? Please chekout [Ionic Framework](http://ionicframework.com) and [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
 
+### Question
+if you have some problem with window system, please follow the blow step may help you fixed it.
+```js
+grunt-contrib-compass/node_modules/tmp/lib/tmp.js:261
+        throw err;
+      ^
+     Error: cannot read property 'stdout' of undefined
+    at compile
+```
+
+see issue: [Run grunt serve error](https://github.com/lanceli/cnodejs-ionic/issues/11)
+
+* Make sure you have installed [Ruby](http://rubyinstaller.org/downloads/) tools 
+* After you install ruby, use gem to install sass and compass(in cmd):
+> 1. gem install sass
+> 2. gem install compass
+
+* use npm to install modules(in cmd), choose one to install:
+> 1. npm install cordova ionic
+> 2. npm install -g cordova ionic
+
+After install all the modules, you may face the child_process error. This is a windows system bug. you can fixed it like this:
+```js
+grunt-contrib-compass/node_modules/tmp/lib/tmp.js:261
+        throw err;
+      ^
+     Error: spawn ENOENT
+    at errnoException (child_process.js:1001:11) 
+   at Process.ChildProcess._handle.onexit (child_process.js:802:34)
+```
+A solution would be to replace spawn by win-spawn:
+
+1. npm install win-spawn
+2. Replace the line in the Gruntfile.js:
+```js
+replace child_process to win-spawn
+var spawn = require('child_process').spawn;
+to
+var spawn = require('win-spawn');
+```
+
+more information about this defect,please see:
+ 
+* [child_process error solution1](https://cnodejs.org/topic/54b4db04edf686411e1b9d7f#54b51ac3edf686411e1b9dcf)
+* [child_process error solution2](https://github.com/diegonetto/generator-ionic/issues/15#issuecomment-38075095)
+
+have try, it should work now.
+
 ### Cross-Origin
 When you run it locally in browser, CORS is a problem.
 
