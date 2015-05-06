@@ -34,8 +34,12 @@ angular.module('cnodejs.filters')
     }
   };
 })
-.filter('protocol', function() {
+.filter('protocol', function(ENV) {
   return function(src) {
+    // filter avatar link
+    if (/^\/agent\?/gi.test(src)) {
+      return 'https://cnodejs.org' + src;
+    }
     // add https protocol
     if (/^\/\//gi.test(src)) {
       return 'https:' + src;
