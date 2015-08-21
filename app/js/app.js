@@ -110,15 +110,6 @@ angular.module('cnodejs', [
         }
       }
     })
-    .state('app.user_collections', {
-      url: '/user/:loginname/collections',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/user_collections.html',
-          controller: 'UserCollectionsCtrl'
-        }
-      }
-    })
     .state('app.messages', {
       url: '/my/messages',
       views: {

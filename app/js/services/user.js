@@ -72,20 +72,6 @@ angular.module('cnodejs.services')
           Storage.set(storageKey, user);
         }
       });
-    },
-    collectTopic: function(topicId) {
-      user.collect_topics.push({
-        id: topicId
-      });
-      Storage.set(storageKey, user);
-    },
-    deCollectTopic: function(topicId) {
-      angular.forEach(user.collect_topics, function(topic, key) {
-        if (topic.id === topicId) {
-          user.collect_topics.splice(key, 1);
-        }
-      });
-      Storage.set(storageKey, user);
     }
   };
 });

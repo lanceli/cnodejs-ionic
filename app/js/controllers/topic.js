@@ -9,19 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicCtrl', function(
-  $scope,
-  $rootScope,
-  $stateParams,
-  $timeout,
-  $ionicLoading,
-  $ionicActionSheet,
-  $ionicScrollDelegate,
-  $log,
-  Topics,
-  Topic,
-  User
-) {
+.controller('TopicCtrl', function($scope, $rootScope, $stateParams, $timeout, $ionicLoading, $ionicActionSheet, $ionicScrollDelegate, $log, Topics, Topic, User) {
   $log.debug('topic ctrl', $stateParams);
   var id = $stateParams.id;
   var topic = Topics.getById(id);
@@ -53,15 +41,6 @@ angular.module('cnodejs.controllers')
     );
   };
   $scope.loadTopic();
-
-  // detect if user has collected this topic
-  var currentUser = User.getCurrentUser();
-  $scope.isCollected = false;
-  angular.forEach(currentUser.collect_topics, function(topics) {
-    if (topics.id === id) {
-      $scope.isCollected = true;
-    }
-  });
 
   // do refresh
   $scope.doRefresh = function() {
@@ -139,24 +118,5 @@ angular.module('cnodejs.controllers')
         return true;
       }
     });
-  };
-
-  // collect topic
-  $scope.collectTopic = function () {
-    if ($scope.isCollected) {
-      Topic.deCollectTopic(id).$promise.then(function(response) {
-        if (response.success) {
-          $scope.isCollected = false;
-          User.deCollectTopic(id);
-        }
-      });
-    } else {
-      Topic.collectTopic(id).$promise.then(function(response) {
-        if (response.success) {
-          $scope.isCollected = true;
-          User.collectTopic(id);
-        }
-      });
-    }
   };
 });
