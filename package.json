@@ -50,17 +50,18 @@
   },
   "cordovaPlugins": [
     "https://github.com/driftyco/ionic-plugins-keyboard.git",
-    "org.apache.cordova.statusbar",
-    "org.apache.cordova.console",
-    "https://github.com/wildabeast/BarcodeScanner.git",
+    "cordova-plugin-statusbar",
+    "cordova-plugin-console",
     "https://github.com/VersoSolutions/CordovaClipboard",
-    "org.apache.cordova.splashscreen",
-    "org.apache.cordova.inappbrowser",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-inappbrowser",
     "https://github.com/katzer/cordova-plugin-badge.git",
-    "org.apache.cordova.dialogs",
+    "cordova-plugin-dialogs",
     "https://github.com/katzer/cordova-plugin-email-composer.git",
     "https://github.com/danwilson/google-analytics-plugin.git",
     "https://github.com/lanceli/jpush-phonegap-plugin",
-    "org.apache.cordova.device"
-  ]
+    "cordova-plugin-device",
+    "phonegap-plugin-barcodescanner"
+  ],
+  "cordovaPlatforms": []
 }
