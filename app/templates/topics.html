@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
 
-    <ion-refresher ng-if="topics.length > 0 || loadError" pulling-text="下拉刷新..." on-refresh="doRefresh()" refreshing-icon="ion-loading-c">
+    <ion-refresher ng-if="topics.length > 0 || loadError" pulling-text="下拉刷新..." on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list class="topics">
       <ion-item class="item-avatar"
@@ -28,7 +28,7 @@
       Loading icon of infinte-scroll not showing with collection-repeat
       https://github.com/driftyco/ionic/issues/2376
     -->
-    <ion-infinite-scroll on-infinite="loadMore()" distance="10%" icon="ion-loading-c" ng-if="hasNextPage && !loadError">
+    <ion-infinite-scroll on-infinite="loadMore()" distance="10%" ng-if="hasNextPage && !loadError">
     </ion-infinite-scroll>
   </ion-content>
 </ion-view>

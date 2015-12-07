@@ -19,7 +19,7 @@ angular.module('cnodejs.filters')
         content
         .replace(userLinkRegex, 'href="#/user/$1"')
         .replace(noProtocolSrcRegex, 'src="https://$1"')
-        .replace(externalLinkRegex, "onClick=\"window.open('$1', '_blank', 'location=yes')\"")
+        .replace(externalLinkRegex, "onClick=\"cordova.InAppBrowser.open('$1', '_blank', 'location=yes')\"")
       );
     }
     return content;
