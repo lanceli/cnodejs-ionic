@@ -66,6 +66,12 @@ angular.module('cnodejs', [
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
       }
+    } else {
+      window.cordova = {
+        InAppBrowser: {
+          open: window.open
+        }
+      };
     }
 
     // push handler

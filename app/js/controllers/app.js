@@ -64,7 +64,7 @@ angular.module('cnodejs.controllers')
   // set badge of app icon
   var setBadge = function(num) {
     // Promot permission request to show badge notifications
-    if (window.cordova && window.cordova.plugins.notification.badge) {
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.notification.badge) {
       cordova.plugins.notification.badge.hasPermission(function (granted) {
         $log.debug('Permission has been granted: ' + granted);
         if (granted) {
