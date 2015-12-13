@@ -1,3 +1,8 @@
+## v2.0.0
+* 增加原生分享功能，包括微信、pocket等（感谢[@pluswave](https://github.com/pluswave)）
+* 支持手势滑动后退
+* 更新ionic至v1.1.1
+
 ## v1.2.2
 * 增加了收藏功能
 * 解决头像显示问题
