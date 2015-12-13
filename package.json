@@ -61,7 +61,8 @@
     "https://github.com/danwilson/google-analytics-plugin.git",
     "https://github.com/lanceli/jpush-phonegap-plugin",
     "cordova-plugin-device",
-    "phonegap-plugin-barcodescanner"
+    "phonegap-plugin-barcodescanner",
+    "https://github.com/pluswave/SocialSharing-PhoneGap-Plugin"
   ],
   "cordovaPlatforms": []
 }

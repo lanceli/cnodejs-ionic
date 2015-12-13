@@ -52,7 +52,8 @@ module.exports = function (grunt) {
             debug: true,
             // Test user access token
             accessToken: 'f6d0dc46-d66f-45f9-a7e7-4c1be175a08d',
-            api: 'http://dev.cnodejs.org/api/v1'
+            domain: 'http://dev.cnodejs.org',
+            api: '/api/v1'
           }
         }
       },
@@ -62,7 +63,8 @@ module.exports = function (grunt) {
             version: '<%= pkg.version %>',
             name: 'production',
             debug: false,
-            api: 'https://cnodejs.org/api/v1'
+            domain: 'https://cnodejs.org',
+            api: '/api/v1'
           }
         }
       }

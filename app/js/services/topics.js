@@ -10,11 +10,12 @@
 
 angular.module('cnodejs.services')
 .factory('Topics', function(ENV, $resource, $log, User) {
+  var api = ENV.domain + ENV.api;
   var topics = [];
   var currentTab = 'all';
   var nextPage = 1;
   var hasNextPage = true;
-  var resource =  $resource(ENV.api + '/topics', {
+  var resource =  $resource(api + '/topics', {
   }, {
     query: {
       method: 'get',

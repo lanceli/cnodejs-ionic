@@ -9,7 +9,7 @@
  */
 
 angular.module('cnodejs.controllers')
-.controller('TopicCtrl', function($scope, $rootScope, $stateParams, $timeout, $ionicLoading, $ionicActionSheet, $ionicScrollDelegate, $log, Topics, Topic, User) {
+.controller('TopicCtrl', function(ENV, $scope, $rootScope, $stateParams, $timeout, $ionicLoading, $ionicActionSheet, $ionicScrollDelegate, $log, Topics, Topic, User) {
   $log.debug('topic ctrl', $stateParams);
   var id = $stateParams.id;
   var topic = Topics.getById(id);
@@ -118,5 +118,20 @@ angular.module('cnodejs.controllers')
         return true;
       }
     });
+  };
+
+  // share topic
+  $scope.shareTopic = function() {
+    if (window.plugins && window.plugins.socialsharing) {
+      window.plugins.socialsharing.available(function(isAvailable) {
+        if (isAvailable) {
+          window.plugins.socialsharing.share(topic.title, 'CNode社区话题分享', 'http://ww2.sinaimg.cn/large/658e3191gw1eyw4vrjbkaj2040040mx4.jpg', ENV.domain + '/topic/' + topic.id);
+        } else {
+          alert('分享失败');
+        }
+      });
+    } else {
+      window.open(ENV.domain + '/topic/' + topic.id);
+    }
   };
 });

@@ -10,17 +10,18 @@
 
 angular.module('cnodejs.services')
 .factory('Topic', function(ENV, $resource, $log, $q, User, Settings) {
+  var api = ENV.domain + ENV.api;
   var topic;
-  var resource =  $resource(ENV.api + '/topic/:id', {
+  var resource =  $resource(api + '/topic/:id', {
     id: '@id',
   }, {
     reply: {
       method: 'post',
-      url: ENV.api + '/topic/:topicId/replies'
+      url: api + '/topic/:topicId/replies'
     },
     upReply: {
       method: 'post',
-      url: ENV.api + '/reply/:replyId/ups'
+      url: api + '/reply/:replyId/ups'
     }
   });
   return {

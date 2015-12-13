@@ -10,9 +10,10 @@
 
 angular.module('cnodejs.services')
 .factory('User', function(ENV, $resource, $log, $q, Storage, Push) {
+  var api = ENV.domain + ENV.api;
   var storageKey = 'user';
-  var resource = $resource(ENV.api + '/accesstoken');
-  var userResource = $resource(ENV.api + '/user/:loginname', {
+  var resource = $resource(api + '/accesstoken');
+  var userResource = $resource(api + '/user/:loginname', {
     loginname: ''
   });
   var user = Storage.get(storageKey) || {};

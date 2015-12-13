@@ -10,16 +10,17 @@
 
 angular.module('cnodejs.services')
 .factory('Messages', function(ENV, $resource, $log, User) {
+  var api = ENV.domain + ENV.api;
   var messages = {};
   var messagesCount = 0;
-  var resource =  $resource(ENV.api + '/messages', null, {
+  var resource =  $resource(api + '/messages', null, {
     count: {
       method: 'get',
-      url: ENV.api + '/message/count'
+      url: api + '/message/count'
     },
     markAll: {
       method: 'post',
-      url: ENV.api + '/message/mark_all'
+      url: api + '/message/mark_all'
     }
   });
   return {
