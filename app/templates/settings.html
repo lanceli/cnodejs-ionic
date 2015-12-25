@@ -36,13 +36,13 @@
           Email
         </span>
       </ion-item>
-      <ion-item onclick="cordova.InAppBrowser.open('itms-apps://itunes.apple.com/app/id954734793', '_system')" ng-if="platform.isIOS()">
+      <ion-item onclick="InAppBrowser.open('itms-apps://itunes.apple.com/app/id954734793', '_system')" ng-if="platform.isIOS()">
         评分鼓励
       </ion-item>
-      <ion-item onclick="cordova.InAppBrowser.open('http://blog.lanceli.com/about', '_blank', 'location=yes')">
+      <ion-item onclick="InAppBrowser.open('http://blog.lanceli.com/about', '_blank', 'location=yes')">
         关于作者
       </ion-item>
-      <ion-item onclick="cordova.InAppBrowser.open('https://cnodejs.org/about', '_blank', 'location=yes')">
+      <ion-item onclick="InAppBrowser.open('https://cnodejs.org/about', '_blank', 'location=yes')">
         关于CNode社区
       </ion-item>
     </ion-list>
