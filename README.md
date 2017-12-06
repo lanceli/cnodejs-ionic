@@ -1,6 +1,6 @@
 # CNodejs Ionic app
 
-> [https://cnodejs.org](http://cnodejs.org) hybird mobile application powered by [Ionic Framework](http://ionicframework.com) 1.x using AngularJS and Cordova. The development stage powered by [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
+> [https://cnodejs.org](http://cnodejs.org) hybird mobile application powered by [Ionic Framework](http://ionicframework.com) 1.x using AngularJS 1.x and Cordova. The development stage powered by [Ionic Framework generator](https://github.com/diegonetto/generator-ionic).
 
 [Demo](http://lanceli.com/cnodejs-ionic)
 
